@@ -1,0 +1,227 @@
+/*button*/
+.el-button{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.el-button--primary{
+    background: #1d64a8;
+    border: none;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.el-button:hover,.el-button:focus{
+    color: #fff;
+    border-color: #d8dce5;
+    background-color: #1d64a8;
+}
+/*input*/
+.el-input__inner{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+/*table*/
+.el-table{
+    margin: 1%;
+    width: 98% !important;
+}
+.el-table th.is-leaf{
+    background: #f3f3f3;
+}
+.el-table .cell{
+    text-align: center;
+}
+.el-tree-node__content{
+    height: 42px;
+}
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content{
+    background: #1d64a8;
+    color: #fff;
+}
+.el-textarea__inner{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.haveTitle{
+    margin: 1%;
+    background: #fbfbfb;
+    border: 1px solid #e5e5e5;
+    padding: 0px;
+}
+.haveTitle .header{
+    height: 62px;
+    padding-top: 10px;
+}
+.haveTitle .el-col{
+    height: 52px;
+    border-bottom: 1px solid #ccc;
+}
+.haveTitle .admin_title{
+    width:160px;
+    line-height: 48px;
+    border-top: 4px solid #068eed;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom:none;
+    text-align: center;
+}
+/*Pagination*/
+.el-pager li{
+    border: 1px solid #d9d9d9;
+    margin-right:10px;
+}
+.el-pager li.active + li{
+    border-left: 1px solid #d9d9d9;
+}
+.el-pagination .btn-prev{
+    border: 1px solid #d9d9d9;
+    margin-right:10px;
+    padding: 0px;
+}
+.el-pagination .btn-next{
+    border: 1px solid #d9d9d9;
+    margin-right:10px;
+    padding: 0px;
+}
+.el-pagination .el-select .el-input .el-input__inner{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.el-pagination__total{
+    float: right;
+}
+.el-pagination__sizes{
+    float: right;
+}
+/*dialog*/
+.el-dialog__header{
+    background:#1d64a8;
+    padding:15px;
+}
+.el-dialog__title{
+    color: #fff;
+}
+.el-dialog__headerbtn .el-dialog__close{
+    color: #fff;
+}
+.el-dialog .el-form-item{
+    border-bottom: 1px solid #eee;
+}
+.el-dialog .el-form-item:last-child{
+    border-bottom: none;
+}
+.el-dialog .el-form .el-row .el-form-item{
+    margin-bottom:5px;
+}
+.el-form-item__content{
+    line-height: 30px;
+}
+.el-dialog .el-form .el-row .el-input{
+    margin-bottom:0;
+}
+.el-dialog .el-date-editor{
+    width: 100%;
+}
+.el-dialog .el-select{
+    display: block;
+}
+.el-dialog .el-radio-group{
+    display: block;
+}
+/*title*/
+.pageTitle{
+    width: 98%;
+    margin: 1%;
+    background: #fbfbfb;
+    border: 1px solid #e5e5e5;
+}
+.pageTitle .pageTitleSub{
+    padding:1%;
+    width: 98%;
+    border-bottom: 1px solid #e5e5e5;
+}
+.pageTitle .header{
+    height: 62px;
+    padding-top: 10px;
+}
+.pageTitle .titleText{
+    line-height: 48px;
+    border-top: 4px solid #068eed;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom:none;
+    text-align: center;
+}
+.pageButton{
+    text-align:right;
+    margin:0 1% 1% 0;
+}
+.pageSetBtn{
+    margin: 1%;
+    padding: 1%;
+    background: #fbfbfb;
+    border: 1px solid #e5e5e5;
+}
+/*demo*/
+.pageTitle .pageTitleSub .el-col{
+    margin-bottom: 10px;
+}
+.pageTitle .pageTitleSub .el-select{
+    width: 100%;
+}
+.pageTitle .pageTitleSub .el-date-editor{
+    width: 100%;
+}
+.pageTitle .pageTitleSub .el-form-item{
+    margin-bottom: 0;
+}
+.pageTitle .pageLeftRight{
+    padding: 1%;
+}
+.pageTitle .pageLeftRight .el-table{
+    margin: 0;
+    width: 100% !important;
+}
+.pageTitle .pageLeftRight .Pagination{
+    text-align: right;
+}
+.pageTitle .pageLeftRight .el-pagination{
+    padding: 10px 5px;
+}
+.pageTitle .pageButton{
+    text-align:right;
+    margin:1% 0;
+}
+.pageTitle .el-aside{
+    border: 1px solid #ccc;
+    background: #fbfbfb;
+    height: 560px;
+}
+.pageTitle .el-main{
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    padding: 0px;
+    background: #fbfbfb;
+}
+.pageTitle .el-main .el-table{
+    margin: 1%;
+    width: 98% !important;
+}
+.pageTitle .pageForm{
+    padding:1%;
+    width: 98%;
+    border-bottom: 1px solid #e5e5e5;
+}
+.pageTitle .pageForm .el-form-item{
+    margin-bottom: 10px;
+}
+.pageTitle .el-tabs__nav-wrap.is-scrollable{
+    padding:0;
+}
+.el-tabs__nav-next, .el-tabs__nav-prev{
+    display: none;
+}

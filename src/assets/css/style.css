@@ -1,0 +1,833 @@
+#app {
+    height: 100%;
+}
+.header_container{
+    position: fixed;
+    top:0;
+    z-index: 999;
+}
+.contentAll{
+    width: 100%;
+    position: absolute;
+    top:60px;
+    height:100%;
+    display:table;
+    overflow: hidden;
+}
+.contentAll aside{
+    display:table-cell;
+    white-space:nowrap;
+    vertical-align: top;
+}
+.contentAll #mainSec{
+    display:table-cell;
+    width:100%;
+    vertical-align: top;
+    overflow-y: auto;
+}
+.contentAll aside,.sideMenu{
+    background: #efefef;
+}
+.contentAll .sideMenu--collapse{
+    width: 65px;
+}
+.contentAll .sideMenu:not(.el-menu--collapse) {
+    width: 210px;
+    min-height: 400px;
+}
+.contentAll .sideIcon{
+    height: 30px;
+    line-height:30px;
+    text-align: center;
+    border-right:solid 1px #e6e6e6;
+    cursor:pointer;
+}
+.contentAll .sideIcon i{
+    color: #068eed;
+}
+.contentAll .el-menu-item i{
+    color: #068eed;
+}
+.contentAll .el-submenu{
+    background:#eee;
+}
+.contentAll .el-submenu i{
+    color: #068eed;
+}
+.contentAll .el-submenu .el-menu-item{
+    background: #e5e5e5;
+}
+.contentAll .el-submenu .is-active{
+    border-left:4px solid #068eed;
+    color: #068eed;
+    background: #f7f7f7;
+}
+.contentAll .el-menu-item.is-active{
+    border-left:4px solid #068eed;
+    color: #068eed;
+    background: #f7f7f7;
+}
+/*data_section*/
+.data_section{
+    margin: 1%;
+    width: 98%;
+}
+.data_section .section_title{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.data_section .data_list{
+    height:84px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    background: #fefefe;
+    border-right:1px solid #e8e8e8;
+}
+.data_section .data_num{
+    color: #333;
+    font-size: 22px;
+}
+.data_section .head{
+    border-radius: 6px;
+    font-size: 24px;
+    padding: 0 10px;
+    color: #fff;
+}
+.data_section .dataImg{
+    line-height:84px;
+}
+.data_section .dataImg img{
+    vertical-align: middle;
+}
+.data_section .dataText{
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+}
+.data_section .today_head{
+    background: #FF9800;
+}
+.data_section .all_head{
+    background: #20A0FF;
+}
+.data_section .wan{
+    font-size:16px;
+    color: #333;
+}
+.data_section .subTitle{
+    height:40px;
+    line-height: 40px;
+    background: #f1f2f5;
+}
+.data_section .subCon{
+    padding: 0px !important;
+}
+/*dicList*/
+.dicList{
+    margin: 1%;
+    background: #fbfbfb;
+    border: 1px solid #e5e5e5;
+}
+.dicList .dicTop .el-input{
+    width: 46%;
+    float: left;
+    margin: 0 2%;
+}
+.dicList .el-pagination{
+    padding: 5px;
+}
+.dicList .addFloat .el-input{
+    width: 48%;
+    float: left;
+    margin-right: 2%;
+}
+/*areaList*/
+.areaList{
+    padding: 1%;
+}
+.contentAll .areaList .el-aside{
+    border: 1px solid #ccc;
+    height: 610px;
+    background: #fff;
+}
+.areaList .el-tree{
+    height: 570px;
+    overflow-y: auto;
+}
+.areaList .adminSet{
+    background: #fbfbfb;
+    margin:0 10px;
+    border: 1px solid #ccc;
+    padding: 0px;
+}
+.areaList .adminSet .header{
+    height: 62px;
+    padding-top: 10px;
+}
+.areaList .el-table .el-col{
+    height: 52px;
+    border-bottom: 1px solid #ccc;
+}
+.areaList .adminSet .el-pagination{
+    padding: 5px 5px 15px;
+}
+.areaList .adminSet .admin_title{
+    width:160px;
+    line-height: 48px;
+    border-top: 4px solid #068eed;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom:none;
+    text-align: center;
+}
+/*officeList*/
+.officeList{
+    padding: 10px;
+}
+.contentAll .officeList .el-aside{
+    border: 1px solid #ccc;
+    background: #fbfbfb;
+    height: 560px;
+}
+.officeList .el-aside .el-tabs{
+    height: 100%;
+}
+.officeList .el-tabs__content{
+    height: 520px;
+    overflow-y: auto;
+}
+.officeList .el-tabs__header{
+    margin: 0px;
+}
+.officeList .el-tabs__nav-wrap.is-scrollable{
+    padding: 0px;
+}
+.officeList .el-tabs__nav-wrap span{
+    display: none;
+}
+.officeList .el-tabs__nav{
+    width: 100%;
+}
+.officeList .el-tabs__item{
+    padding: 0px;
+    text-align: center;
+}
+.officeList .el-tabs__item:nth-child(2){
+    padding-left: 0px!important;
+}
+.officeList .el-tabs__item{
+    width: 50%;
+}
+.officeList .el-main{
+    margin:0 10px;
+    border: 1px solid #ccc;
+    padding: 0px;
+    background: #fbfbfb;
+}
+.officeList .officeName{
+    width: 46%;
+    float: left;
+    margin: 0 2%;
+}
+.officeList .selectType{
+    width: 46%;
+    float: left;
+    margin: 0 2%;
+}
+.officeDialog .el-col-12{
+    width: 48%;
+    margin-right: 2%;
+}
+.officeDialog .el-form-item{
+    margin-bottom: 0px;
+}
+/*.officeDialog .el-input{
+    margin-bottom: 10px !important;
+}*/
+/*menuList*/
+.menuList .demo-table-expand {
+    font-size: 0;
+}
+.menuList .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+}
+.menuList .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+}
+.menuList .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.menuList .menuList .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+}
+.menuList .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+}
+.menuList .avatar {
+    width: 120px;
+    height: 120px;
+    display: block;
+}
+/*admin_set*/
+.admin_set{
+    width: 66%;
+    background-color: #F9FAFC;
+    min-height: 400px;
+    margin: 20px auto 0;
+    border-radius: 10px;
+}
+.admin_set ul > li{
+    padding: 10px;
+    overflow: hidden;
+}
+.admin_set li label{
+    display: block;
+    width: 14%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+}
+.admin_set li .el-upload{
+    float: left;
+    margin-top: 0px;
+}
+.admin_set li .el-input{
+    color: #666;
+    width: 30%;
+    float: left;
+}
+.admin_set .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    margin-top: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.admin_set .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+}
+.admin_set .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+}
+.admin_set .avatar {
+    width: 120px;
+    height: 120px;
+    display: block;
+}
+.setBtn{
+    margin: 1%;
+    background: #fbfbfb;
+    border: 1px solid #e5e5e5;
+}
+.setBtn .el-button--primary{
+    margin: 14px;
+}
+/*login*/
+.login_page{
+    background: #f7f7f7;
+    height: 100%;
+}
+.login_page .loginTitle{
+    width: 100%;
+    height:120px;
+    border-bottom: 4px solid #2b5c94;
+}
+.login_page .loginTitle p{
+    width:1100px;
+    height:120px;
+    line-height: 120px;
+    margin: 0 auto;
+    font-size: 34px;
+    color: #094480;
+}
+.loginTitle p img{
+    vertical-align: middle;
+    margin-bottom:10px;
+}
+.login_page .form_contianer{
+    width:1100px;
+    height: 300px;
+    margin: 140px auto;
+    background: url("../img/loginBg1.png") no-repeat #f7f7f7;
+    background-size: cover;
+    position: relative;
+}
+.login_page .loginCjr{
+    background: url("../img/loginBg2.png") no-repeat #f7f7f7;
+    background-size: cover;
+}
+.login_page .loginSupport{
+    background: url("../img/loginBg3.png") no-repeat #f7f7f7;
+    background-size: cover;
+}
+.login_page .form_contianer .el-form{
+    width: 36%;
+    height: 360px;
+    background: #fff;
+    position: absolute;
+    top:-50px;
+    left: 50%;
+    padding: 2%;
+    -webkit-box-shadow: 3px 3px 3px #dedadb;
+    -moz-box-shadow: 3px 3px 3px #dedadb;
+    box-shadow: 3px 3px 3px #dedadb;
+}
+.form_contianer .el-form .el-form-item{
+    margin-top: 10px;
+}
+.form_contianer .el-form .submit_btn{
+    width: 24%;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background: #2866b1;
+    border: none;
+}
+.loginBottom{
+    width: 100%;
+    height:120px;
+    border-top: 1px solid #c7c7c7;
+    background: #f7f7f7;
+}
+.loginBottom p{
+    width:1100px;
+    height:120px;
+    line-height: 120px;
+    text-align: center;
+    margin: 0 auto;
+    color: #444;
+}
+.loginFT .el-form-item__content{
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+}
+.qrCode{
+    cursor: pointer;
+    width: 180px;
+    height: 66px;
+    position: absolute;
+    top:2%;
+    left: 57%;
+    background: url("../img/qrCode.png") no-repeat;
+}
+.qrCode img{
+    width: 100%;
+}
+.login_page a{
+    color: #929292;
+    margin-left: 6%;
+}
+/*homeCji*/
+.homeCjr{
+    padding: 1% 2%;
+}
+.homeCjr-title{
+    height: 38px;
+    line-height: 38px;
+    background: #f1f2f5;
+}
+.homeCjr-title a{
+    color:#649af5;
+}
+.homeCji-progress{
+    border: 1px solid #dddee2;
+    padding: 0!important;
+    margin-bottom: 14px;
+}
+.homeCji-progress .homeCjr-title{
+    border-bottom: 1px solid #dddee2;
+}
+.homeCji-progress .el-table{
+    margin: 1% 1% 0;
+    height: 330px;
+    cursor: pointer;
+}
+.homeCji-progress .el-table::before{
+    height: 0;
+}
+.homeCji-progress .el-table tr{
+    height: 40px;
+}
+.homeCji-progress .el-table tr:nth-child(2n+1) td{
+    background: #fafafa;
+}
+.homeCji-progress .el-table th.is-leaf{
+    background: #fff;
+    height:48px;
+}
+.progressTab{
+    border:1px solid  #666;
+    height: 26px;
+    margin-top: 6px;
+    padding: 0 !important;
+}
+.progressTab .el-col{
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+.progressTab .active{
+    background: #666;
+    color: #fff;
+}
+.homeCji-progress .el-table__body .el-table_1_column_3 .cell{
+    margin: 0 24px;
+    color: #fff;
+}
+.homeCji-ann{
+    margin-bottom: 14px;
+}
+.homeCji-ann .homeCjr-title{
+    border: 1px solid #dddee2;
+    height: 39px;
+}
+.homeCji-ann .homeCjr-title .el-col-2{
+    cursor: pointer;
+}
+.homeCji-ann .annList{
+    border: 1px solid #dddee2;
+    border-top: none;
+    height: 331px;
+}
+.homeCji-ann .annList .el-row{
+    border-bottom: 1px solid #e7eaec;
+    padding: 10px 0;
+}
+.annList .el-row .el-col{
+    font-size: 14px;
+}
+.annList .el-row .annTxt{
+    cursor: pointer;
+    height:38px;
+}
+.annList .el-row .annTime{
+    color: #999;
+}
+.homeCji-map{
+    border: 1px solid #dddee2;
+    padding: 0!important;
+}
+.homeCji-map .homeCjr-title{
+    border-bottom: 1px solid #dddee2;
+}
+#map{
+    height: 350px;
+}
+.mapForm{
+    padding: 0 !important;
+    text-align: right;
+}
+.mapForm .el-form-item{
+    margin-right: 0;
+    width: 38%;
+}
+.mapForm .el-form-item__label{
+    padding: 0;
+}
+.mapForm .el-input__inner{
+    height: 26px;
+}
+.mapForm .el-button{
+    height: 30px;
+    line-height: 4px;
+}
+.homeCji-policy .homeCjr-title{
+    border: 1px solid #dddee2;
+    height: 39px;
+}
+.homeCji-policy .homeCjr-title .el-col-2{
+    cursor: pointer;
+}
+.homeCji-policy .policyList{
+    border: 1px solid #dddee2;
+    border-top: none;
+    height: 371px;
+    padding-top: 20px;
+}
+.homeCji-policy .policyList .el-col{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    border-bottom: 1px solid #e7eaec;
+    font-size: 14px;
+    cursor: pointer;
+}
+/*homeWorker*/
+.homeWorker{
+    padding: 1% 2%;
+}
+.homeWorker .el-badge__content.is-fixed{
+    top:20px;
+    right: -6px;
+}
+.homeWorker-title{
+    height: 38px;
+    line-height: 38px;
+    background: #f1f2f5;
+}
+.homeWorker-remind{
+    border: 1px solid #dddee2;
+    padding: 0!important;
+    background: #fcfcfc;
+}
+.homeWorker-remind .remindList{
+    height: 304px;
+}
+.homeWorker-remind .remindList .el-col{
+    padding: 0!important;
+}
+.homeWorker-remind .homeWorker-title{
+    border-bottom: 1px solid #dddee2;;
+}
+.homeWorker-remind .remindList .remindItem{
+    margin:7px 1% 0 0;
+    background: #fff;
+    border: 1px solid #f1f2f6;
+    padding: 4px !important;
+    cursor: pointer;
+}
+.remindList .remindItem img{
+    vertical-align: middle;
+}
+.remindList .remindItem .el-col-12{
+    height: 42px;
+    line-height: 42px;
+}
+.remindList .remindItem .el-col-4{
+    height: 42px;
+    line-height: 42px;
+    padding-right: 10px !important;
+    text-align: right;
+}
+.homeWorker-count{
+    padding-right: 0!important;
+}
+.homeWorker-count .homeWorker-title{
+    border: 1px solid #dddee2;
+    border-bottom: none;
+}
+.countTab{
+    border:1px solid  #666;
+    height: 26px;
+    margin-top: 6px;
+    padding: 0 !important;
+}
+.countTab .el-col{
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+.countTab .active{
+    background: #666;
+    color: #fff;
+}
+.chart-count{
+    height: 290px;
+    padding-top: 10px;
+}
+#chartCount>div{
+    width: 100% !important;
+}
+#chartCount>div>canvas{
+    width: 90% !important;
+    left: 8% !important;
+}
+.countList{
+    background: #fcfcfc;
+    border: 1px solid #dddee2;
+    border-top: none;
+    height: 306px;
+}
+.countList .countItem{
+    background: #f2f2f2;
+    margin-top: 12px;
+    height: 40px;
+    line-height: 40px;
+}
+.countList .countItem span{
+    color: #f66968;
+}
+.chart-container{
+    height: 100%;
+}
+.homeWorker-clock{
+    padding-right: 0 !important;
+}
+.clockCon{
+    padding: 0!important;
+    height: 306px;
+}
+.clockCon .el-col{
+    padding: 0!important;
+}
+.clockTab{
+    background: #55c7de;
+    color: #fff;
+    height: 26px;
+    margin-top: 6px;
+    padding: 0 !important;
+}
+.clockTab .el-col{
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+.clockTab .active{
+    background: #3aa9ca;
+}
+.homeWorker-clock .homeWorker-title{
+    border: 1px solid #dddee2;
+    border-bottom: none;
+}
+.clockCon{
+    border: 1px solid #dddee2;
+    border-top: none;
+}
+.chart-container{
+    height: 214px;
+}
+.chart-need{
+    height: 360px;
+}
+/*keyboard*/
+/*.keyboard{
+    width: 98% !important;
+    margin: 1%;
+    border: 1px solid #dddee2;
+}
+.keyboard .subTitle{
+    height:40px;
+    line-height: 40px;
+    background: #f1f2f5;
+    padding-left: 10px;
+}
+.keyboard #chart{
+    width: 98% !important;
+    height: 89%!important;
+    margin: 1%;
+}*/
+/*recover*/
+.signSearch .dicTop .cjType .el-input{
+    width: 100%;
+}
+.cjrTimeCon{
+    border:1px solid #dddee2;
+    margin: 1%;
+    width: 98% !important;
+}
+.cjrTimeCon .comp-full-calendar{
+    margin: 0;
+    max-width: 800px;
+}
+.signList .el-col{
+    margin-bottom: 10px;
+}
+/*homeSuppotr*/
+.chart-control{
+    height: 272px;
+    padding: 0!important;
+}
+.funList{
+    border: 1px solid #dddee2;
+    border-top: none;
+    padding: 0!important;
+    height: 331px;
+}
+.funList .el-col-12{
+    margin-top: 36px;
+}
+.funList .el-col-12 img{
+    width: 100%;
+}
+@media screen and (min-width: 1500px) {
+    .mapInput{
+        width: 32% !important;
+    }
+    .mapBtn{
+        width: 12% !important;
+    }
+}
+@media screen and (min-width: 1510px) {
+    .homeCji-progress .el-table tr{
+        height: 44px;
+    }
+}
+@media screen and (max-width: 1120px){
+    .supportData img{
+        display: block;
+        width: 220px;
+        height: 192px;
+        margin:40px auto;
+    }
+}
+@media screen and (min-width: 1120px) and (max-width: 1280px){
+    .supportData img{
+        display: block;
+        width: 260px;
+        height: 212px;
+        margin:30px auto;
+    }
+}
+@media screen and (min-width: 1280px) and (max-width: 1620px){
+    .supportData img{
+        display: block;
+        width: 310px;
+        height: 232px;
+        margin:20px auto;
+    }
+}
+@media screen and (min-width: 1620px) {
+    .supportData img{
+        display: block;
+        width: 420px;
+        height: 232px;
+        margin:20px auto;
+    }
+}
+.funList{
+    overflow: hidden;
+}
+.funList div{
+    float: left;
+    width: 48%;
+    margin: 34px 1% 0;
+}
+.funList div img{
+    display: block;
+    margin: 0 auto;
+}
+@media screen and (max-width: 1680px){
+    .funList div img{
+        width: 100%;
+    }
+}
