@@ -43,7 +43,7 @@
     	    	
 		methods: {
 			async getListDictData(){
-                let retObj = await listDictData({type: this.dictType, description: this.dictDesc, page: 1, size: 0});
+                let retObj = await listDictData({label: this.dictLabel, description: this.dictDesc, page: 1, size: 0});
                 if (retObj.status != 1) {
 					this.$message({
 	                    type: 'error',

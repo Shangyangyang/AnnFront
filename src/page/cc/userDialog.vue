@@ -10,7 +10,7 @@
 					<el-col :span="12">
 						<el-form-item prop="userName">
 							<label>账号</label>
-							<el-input v-model="user.userName" auto-complete="off"></el-input>
+							<el-input v-model="user.userName" auto-complete="off" :disabled="userNameD"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -18,27 +18,27 @@
 					<el-col :span="12">
 						<el-form-item prop="name">
 							<label>姓名</label>
-							<el-input v-model="user.name" auto-complete="off"></el-input>
+							<el-input v-model="user.name"  auto-complete="off"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 
 				<el-row :gutter="20">
 					<el-col :span="12">
-						<el-form-item prop="userPass">
+						<el-form-item prop="password">
 							<label>密码</label>
 							<el-input type="password" v-model="user.password" auto-complete="off"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item prop="checkPass">
+						<el-form-item prop="password2">
 							<label>确认密码</label>
-							<el-input type="password2" v-model="user.password2" auto-complete="off"></el-input>
+							<el-input type="password" v-model="user.password2" auto-complete="off"></el-input>
 						</el-form-item> 
 					</el-col>
 				</el-row>
 
-				<!--<el-row :gutter="20">
+				<el-row :gutter="20">
                     <el-col :span="24">
                         <el-form-item>
                             <label>角色</label>
@@ -48,7 +48,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                </el-row>-->
+                </el-row>
 			</el-form>
 			<div slot="footer" class="dialog-footer" :show="saveBtnFlag">
 				<el-button @click="dialogClose()" icon="el-icon-close">取 消</el-button>
@@ -60,7 +60,7 @@
 
 <script>
 	import fetch from '@/util/fetch'
-	var _ = require('lodash');
+//	var _ = require('lodash');
 	const insertUserData = data => fetch('/sys/user/add', data);
 	const updateUserData = data => fetch('/sys/user/update', data);
 	const checkUserName = data => fetch('/sys/user/checkUserName', data);
@@ -69,24 +69,25 @@
 		data() {
 			var validatePass = (rule, value, callback) => {
 				if(this.checkAction === 'add') {
-					if(value === '') {
-						callback(new Error('请输入密码'));
-					} else {
-						if(this.user.password !== '') {
-							this.$refs.user.validateField('password');
+					if (!value || value === '') {
+			          return callback(new Error('请输入密码'));
+			       } else {
+						if(this.user.password2 !== '') {
+							this.$refs.user.validateField('password2');
 						}
 						callback();
 					}
 				}
 				if(this.checkAction === 'edit') {
-					if(this.user.checkPass !== '') {
-						this.$refs.user.validateField('password');
+					if(this.user.password2 !== '') {
+						this.$refs.user.validateField('password2');
 					}
 					callback();
 				}
 			};
 			var validatePass2 = (rule, value, callback) => {
 				if(this.checkAction === 'add') {
+					
 					if(value === '') {
 						callback(new Error('请再次输入密码'));
 					} else if(value !== this.user.password) {
@@ -108,12 +109,20 @@
 				roles: [],
 				user: {},
 				saveBtnFlag: true,
+				userNameD: false,
 				rules: {
-					userName: [{
+					userName: [
+					{
 						required: true,
-						message: '请输入账号',
-						trigger: 'blur'
-					}],
+                       	message: '请输入用户名', 
+                       	trigger: 'change' 
+					},
+					{
+						max: 10,
+                       	message: '用户名限制10个字符', 
+                       	trigger: 'change' 
+					}
+					],
 					name: [{
 						required: true,
 						message: '请输入姓名',
@@ -131,16 +140,16 @@
 			};
 		},
 		created: function(){
-			 this.debouncedCheckUserName = _.debounce(this.checkUserName, 800);
+//			 this.debouncedCheckUserName = _.debounce(this.checkUserName, 800);
 		},
-		props: ['show', 'dialogT', 'checkAction'],
+		props: ['show', 'dialogT', 'dataShow', 'checkAction'],
 		watch: {
 			show() {
 				this.visible = this.show;
 			},
-			'user.userName': function(newName, oldName){
-				this.debouncedCheckUserName();
-			}
+//			'user.userName': function(newName, oldName){
+//				this.debouncedCheckUserName();
+//			}
 		},
 		computed: {
 			title: function() {
@@ -149,17 +158,22 @@
 		},
 		methods: {
 			open() {
-//				this.getListRoleData();
 				if(this.checkAction === 'edit') {
+					this.userNameD = true;
 					this.user.id = this.dataShow.id;
 					this.user.userName = this.dataShow.userName;
 					this.user.name = this.dataShow.name;
-					this.user.userPass = this.dataShow.password;
-					this.user.checkPass = this.dataShow.password;
+					this.user.password = this.dataShow.password;
+					this.user.password2 = this.dataShow.password;
 				} else {
+					this.userNameD = false;
 					this.user = {};
+					this.user=JSON.parse(JSON.stringify(this.dataShow));
 				}
 			},
+            closed(){
+            	alert("执行");
+            },
 			saveData(formName) {
 				this.$refs[formName].validate((valid) => {
 					if(valid) {
@@ -209,14 +223,13 @@
 			//关闭前对dialog进行处理
 			dialogClose() {
 				//清空校验
-				this.$refs['user'].resetFields();
-				this.visible = false;
+//				this.$refs['user'].resetFields();
+//				this.visible = false;
 				//将父页面打开dialog控制设置为false关闭
 				this.$emit('update:show', false);
 			},
 			async checkUserName(){
 				if(this.user.userName == ''){
-					console.log("为空");
 					return;
 				}
 				let aa = await checkUserName(this.user);

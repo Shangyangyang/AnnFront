@@ -241,7 +241,7 @@
                     this.user={};
                     this.user=JSON.parse(JSON.stringify(this.dataShow));
                 }
-            },
+            }
             /*获取全部角色*/
             async getListRoleData(){
                 let retObj = await allRoleListData();

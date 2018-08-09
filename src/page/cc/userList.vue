@@ -34,6 +34,7 @@
 						<el-table-column prop="stateName" label="状态" width="150"></el-table-column>
 						<el-table-column label="操作" width="300">
 							<template slot-scope="scope">
+								<el-button size="small" @click="handleEdit(scope.row)" icon="el-icon-edit">编辑</el-button>
                                 <el-button size="small" @click="handleFreeze(scope.row)" icon="el-icon-edit" v-if="scope.row.state == 1">冻结</el-button>
                                 <el-button size="small" @click="handleOpen(scope.row)" icon="el-icon-edit" v-if="scope.row.state == 2">启用</el-button>
                                 <el-button size="small" @click="handleCancel(scope.row)" icon="el-icon-delete" v-if="scope.row.state != 3">注销</el-button>
@@ -48,7 +49,7 @@
 				</el-main>
 			</el-container>
 		</div>
-		<u-dialog :show.sync="show" :dialogT="dialogTitle" @refreshList="doRefreshList" :checkAction="action"></u-dialog>
+		<u-dialog :show.sync="show" :dialogT="dialogTitle" :dataShow.sync="rowData" @refreshList="doRefreshList" :checkAction="action"></u-dialog>
 	</div>
 </template>
 
@@ -129,7 +130,14 @@
 			handleAddClick(){
                 this.action = 'add';
                 this.dialogTitle = '添加用户';
+                this.rowData={};
 				this.show = true;
+            },
+            handleEdit(rowObj){
+                this.rowData=rowObj;
+                this.show = true;
+                this.action = 'edit';
+                this.dialogTitle = '编辑用户';
             },
             doRefreshList(){
                 this.getListUserData();
