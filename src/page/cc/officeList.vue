@@ -41,7 +41,7 @@
 		                <el-table-column label="层级" prop="officeLevel" width="50"></el-table-column>
 		                <el-table-column label="行政区划" prop="areaName" width="100"></el-table-column>
 		                <el-table-column label="地址" prop="address"></el-table-column>
-		                <el-table-column label="电话" prop="phone" width="100"></el-table-column>
+		                <el-table-column label="联系电话" prop="phone" width="100"></el-table-column>
 		                <el-table-column label="传真" prop="fax" width="100"></el-table-column>
 		                <el-table-column label="排序" prop="sort" width="50"></el-table-column>
 		                <el-table-column label="操作" width="300">

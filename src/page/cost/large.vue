@@ -12,6 +12,7 @@
 					<div style="padding:20px 10px; width: 100%;border-bottom: 1px solid #e5e5e5;" class="dicTop">
 						<el-form>
 							<el-row :gutter="20">
+								<el-col :span="1.1">消费类型：</el-col>
 								<el-col :span="4">
 									<el-select v-model="queryType" placeholder="请选择" @change="changeType">
 									    <el-option v-for="item in types" :key="item.value" :label="item.name" :value="item.value"></el-option>
@@ -22,22 +23,22 @@
 									<el-button @click="resetData" type="primary" icon="el-icon-search">重&nbsp;置</el-button>
 									<el-button @click="handleAddClick()" type="primary" icon="el-icon-plus"
                                                style="background:#fff;color:#000;border:1px solid #ccc;">新&nbsp;增
-                                    </el-button>
-                                    <el-button @click="getYouhao" type="primary" icon="el-icon-search">油&nbsp;耗</el-button>
+                                   </el-button>
 								</el-col>
 							</el-row>
 						</el-form>
 					</div>
 					<el-table :data="tableData" stripe border style="width: 98%">
-						<el-table-column prop="inputDate" label="消费日期" width="150"></el-table-column>
+						<el-table-column prop="costDate" label="消费日期" width="150"></el-table-column>
 						<el-table-column prop="money" label="金额" width="150"></el-table-column>
 						<el-table-column prop="typeName" label="类型" width="150"></el-table-column>
+						<el-table-column prop="jinpozhiName" label="紧急程度" width="150"></el-table-column>
 						<el-table-column prop="reason" label="说明" width="250"></el-table-column>
 						<el-table-column label="操作" width="300">
 							<template slot-scope="scope">
 								<el-button size="small" @click="handleView(scope.row)" icon="el-icon-edit">查看</el-button>
 								<el-button size="small" @click="handleEdit(scope.row)" icon="el-icon-edit">编辑</el-button>
-								<el-button size="small" @click="handleEdit(scope.row)" icon="el-icon-edit">删除</el-button>
+								<el-button size="small" @click="handleDelete(scope.row)" icon="el-icon-edit">删除</el-button>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -87,7 +88,15 @@
 					</el-col>
 				</el-row>
 				<el-row :gutter="20">
-					<el-col :span="20">
+					<el-col :span="12">
+						<el-form-item prop="money">
+							<label>紧迫值</label>
+							<el-select v-model="car.jipozhi" placeholder="请选择" @change="changeType" :disabled="disabledFlag">
+							    <el-option v-for="item in types" :key="item.value" :label="item.name" :value="item.value"></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
 						<el-form-item prop="reason">
 							<label>说明</label>
 							<el-input v-model="car.reason" auto-complete="off" :disabled="disabledFlag"></el-input>
@@ -109,29 +118,16 @@
 			    <el-button type="primary" @click="saveCar(car)" v-show="saveBtn">保 存</el-button>
 		  	</span>
 		</el-dialog>
-		
-		<el-dialog :title="title" :visible.sync="oilWearDialog" width="30%" :before-close="handleCloseOilWear">
-			<span>油耗详情</span>
-				<div>
-					<span>合计时间段：</span><span>{{carOilWear.startTime}}&nbsp;至&nbsp;{{carOilWear.endTime}}</span><br/>
-					<span>汽油总升数：</span><span>{{carOilWear.shengTotal}}&nbsp;升</span><br/>
-					<span>总里程数&emsp;：</span><span>{{carOilWear.lichengTotal}}&nbsp;公里</span><br/>
-					<span>总油费&emsp;&emsp;：</span><span>{{carOilWear.money}}&nbsp;元</span><br/>
-					<span>百公里油耗：</span><span>{{carOilWear.baigongliyouhao}}&nbsp;升</span><br/>
-					<span>平均油价&emsp;：</span><span>{{carOilWear.averageYoujia}}&nbsp;元</span><br/>
-				</div>
-		</el-dialog>
-
 	</div>
 </template>
 
 <script>
 	import fetch from '@/util/fetch';
     
-	const listCarData = data => fetch('/cost/car/list', data);
-	const save = data => fetch('/cost/car/save', data);
+	const listCarData = data => fetch('/cost/large/list', data);
+	const save = data => fetch('/cost/large/save', data);
+	const deleteCar = data => fetch('/cost/large/delete', data);
 	const findDictByLabel = data => fetch('/sys/dict/list', data);
-	const getOilWear = data => fetch('/cost/car/getOilWear', data);
 
 	export default {
 		data() {
@@ -144,7 +140,6 @@
 				pageSize: 10,
 				dataCount: 0,
 				dialogVisible: false,
-				oilWearDialog: false,
 				saveBtn: false,
 				viewBtn: false,
 				disabledFlag: false,
@@ -152,7 +147,6 @@
 		        type:'',
 		        typeShow: "display:none",
 				car: {},
-				carOilWear: {},
 				title: '',
 				rowData: {},
 				action: '',
@@ -192,7 +186,7 @@
 				this.dataCount = retObj.data.total;
 				// 查询下拉值获取
 				if(this.types.length == 0){
-					this.getDictByLabel('car_type');
+					this.getDictByLabel('cost_large_type');
 				}
 			},
 			// 根据标签获取字典列表
@@ -212,6 +206,74 @@
 					this.types.push(item)
 				);
 			},
+			async getYouhao(){
+            	this.title = '油耗详情'; 
+            	
+				this.oilWearDialog = true;
+				
+				let retObj = await getOilWear({});
+				if(retObj.status != 1) {
+					this.$message({
+						type: 'error',
+						message: '获取数据失败'
+					});
+					return;
+				}
+				
+				this.carOilWear = retObj.data;
+            },
+            async saveCar(rowObj){
+            	this.dialogVisible = false;
+            	
+            	delete(rowObj.createUser);
+            	delete(rowObj.createDate);
+            	delete(rowObj.updateUser);
+            	delete(rowObj.updateDate);
+          
+          
+            	let retObj = await save(rowObj);
+				if(retObj.status != 1) {
+					this.$message({
+						type: 'error',
+						message: '保存数据失败' + retObj.message
+					});
+					return;
+				}
+				this.$message({
+					type: 'success',
+					message: '保存数据完成'
+				});
+				
+				this.getListCarData();
+            },
+            async deleteData(rowObj){
+            	let retObj = await deleteCar({
+            		id: rowObj.id
+            	});
+				if(retObj.status != 1) {
+					this.$message({
+						type: 'error',
+						message: '删除失败' + retObj.message
+					});
+					return;
+				}
+				this.$message({
+					type: 'success',
+					message: '删除成功'
+				});
+				this.getListCarData();
+            },
+            handleDelete(rowObj){
+            	this.$confirm('确定要删除吗？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    center: true
+                }).then(() => {
+                    this.deleteData(rowObj);
+                }).catch(() => {
+                });
+            },
 			handleCloseOilWear(done) {
 					this.oilWearDialog = false;
 					done();
@@ -264,58 +326,35 @@
 				this.disabledFlag = true;
             },
 			handleAddClick(){
-				// 获取下拉框的值
-				if(this.types.length == 0){
-					this.getDictByLabel('car_type');
-				}
+				this.preSave();
+				
                 this.action = 'add';
                 this.title = '添加消费';
                 this.car={};
+            },
+            handleEdit(rowObj){
+            	
+            	this.preSave();
+            	if(rowObj.type == '1'){
+            		this.typeShow = "display:block";
+            	} else {
+            		this.typeShow = "display:none";
+            	}
+                this.car = rowObj;
+                this.dialogTitle = '编辑消费';
+                
+            },
+            preSave(){
+            	// 获取下拉框的值
+				if(this.types.length == 0){
+					this.getDictByLabel('car_type');
+				}
 				this.dialogVisible = true;
 				this.viewBtn = false;
 				this.saveBtn = true;
 				this.disabledFlag = false;
-            },
-            handleEdit(rowObj){
-                this.rowData=rowObj;
-                this.show = true;
-                this.action = 'edit';
-                this.dialogTitle = '编辑消费';
-            },
-            async getYouhao(){
-            	this.title = '油耗详情'; 
-            	
-				this.oilWearDialog = true;
-				
-				let retObj = await getOilWear({});
-				if(retObj.status != 1) {
-					this.$message({
-						type: 'error',
-						message: '获取数据失败'
-					});
-					return;
-				}
-				
-				this.carOilWear = retObj.data;
-            },
-            async saveCar(rowObj){
-            	this.dialogVisible = false;
-            	
-            	let retObj = await save(rowObj);
-				if(retObj.status != 1) {
-					this.$message({
-						type: 'error',
-						message: '保存数据失败' + retObj.message
-					});
-					return;
-				}
-				this.$message({
-					type: 'success',
-					message: '保存数据完成'
-				});
-				
-				this.getListCarData();
             }
+            
 		},
         components: {
         }

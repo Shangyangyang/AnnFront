@@ -233,6 +233,12 @@
             async saveCar(rowObj){
             	this.dialogVisible = false;
             	
+            	delete(rowObj.createUser);
+            	delete(rowObj.createDate);
+            	delete(rowObj.updateUser);
+            	delete(rowObj.updateDate);
+          
+          
             	let retObj = await save(rowObj);
 				if(retObj.status != 1) {
 					this.$message({
@@ -248,23 +254,33 @@
 				
 				this.getListCarData();
             },
-            async handleDelete(rowObj){
-            	if(this.$confirm('确认要删除吗？')){
-            		let retObj = await deleteCar(rowObj.id);
-					if(retObj.status != 1) {
-						this.$message({
-							type: 'error',
-							message: '删除失败' + retObj.message
-						});
-						return;
-					}
+            async deleteData(rowObj){
+            	let retObj = await deleteCar({
+            		id: rowObj.id
+            	});
+				if(retObj.status != 1) {
 					this.$message({
-						type: 'success',
-						message: '删除成功'
+						type: 'error',
+						message: '删除失败' + retObj.message
 					});
-					this.getListCarData();
+					return;
 				}
-            	
+				this.$message({
+					type: 'success',
+					message: '删除成功'
+				});
+				this.getListCarData();
+            },
+            handleDelete(rowObj){
+            	this.$confirm('确定要删除吗？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    center: true
+                }).then(() => {
+                    this.deleteData(rowObj);
+                }).catch(() => {
+                });
             },
 			handleCloseOilWear(done) {
 					this.oilWearDialog = false;
@@ -318,23 +334,33 @@
 				this.disabledFlag = true;
             },
 			handleAddClick(){
-				// 获取下拉框的值
-				if(this.types.length == 0){
-					this.getDictByLabel('car_type');
-				}
+				this.preSave();
+				
                 this.action = 'add';
                 this.title = '添加消费';
                 this.car={};
+            },
+            handleEdit(rowObj){
+            	
+            	this.preSave();
+            	if(rowObj.type == '1'){
+            		this.typeShow = "display:block";
+            	} else {
+            		this.typeShow = "display:none";
+            	}
+                this.car = rowObj;
+                this.dialogTitle = '编辑消费';
+                
+            },
+            preSave(){
+            	// 获取下拉框的值
+				if(this.types.length == 0){
+					this.getDictByLabel('car_type');
+				}
 				this.dialogVisible = true;
 				this.viewBtn = false;
 				this.saveBtn = true;
 				this.disabledFlag = false;
-            },
-            handleEdit(rowObj){
-                this.rowData=rowObj;
-                this.show = true;
-                this.action = 'edit';
-                this.dialogTitle = '编辑消费';
             }
             
 		},
