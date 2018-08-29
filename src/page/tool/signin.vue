@@ -6,7 +6,7 @@
 				<el-main class="adminSet">
 					<el-row type="flex" class="header">
 						<el-col style="width:16px;border-bottom: 1px solid #ccc;"></el-col>
-						<el-col class="admin_title">大额支出管理</el-col>
+						<el-col class="admin_title">雪碧</el-col>
 						<el-col style="flex: 1;border-bottom: 1px solid #ccc;"></el-col>
 					</el-row>
 					<div style="padding:20px 10px; width: 100%;border-bottom: 1px solid #e5e5e5;" class="dicTop">
@@ -15,11 +15,6 @@
 								<el-col :span="4">
 									<el-select v-model="queryType" placeholder="消费类型">
 									    <el-option v-for="item in types" :key="item.value" :label="item.name" :value="item.value"></el-option>
-									</el-select>
-								</el-col>
-								<el-col :span="4">
-									<el-select v-model="queryJinpozhi" placeholder="紧迫值">
-									    <el-option v-for="item in jinpozhis" :key="item.value" :label="item.name" :value="item.value"></el-option>
 									</el-select>
 								</el-col>
 								<el-col :span="4">
@@ -41,7 +36,6 @@
 						<el-table-column prop="costDate" label="消费日期" width="150"></el-table-column>
 						<el-table-column prop="money" label="金额" width="150"></el-table-column>
 						<el-table-column prop="typeName" label="类型" width="150"></el-table-column>
-						<el-table-column prop="jinpozhiName" label="紧急程度" width="150"></el-table-column>
 						<el-table-column prop="reason" label="说明" width="250"></el-table-column>
 						<el-table-column label="操作" width="300">
 							<template slot-scope="scope">
@@ -62,21 +56,21 @@
 		
 		<el-dialog :title="title" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
 			<span>请填写</span>
-			<el-form :model="large" :rules="rules" ref="large">
+			<el-form :model="dog" :rules="rules" ref="dog">
 				<div slot  style="display:none">
-					<input v-model="large.id" type="hidden">
+					<input v-model="dog.id" type="hidden">
 				</div>
 				<el-row :gutter="20">
 					<el-col :span="12">
 						<el-form-item prop="money">
 							<label>金额</label>
-							<el-input v-model="large.money" auto-complete="off" :disabled="disabledFlag"></el-input>
+							<el-input v-model="dog.money" auto-complete="off" :disabled="disabledFlag"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item prop="type">
 							<label>类型</label>
-							<el-select v-model="large.type" placeholder="请选择" :disabled="disabledFlag">
+							<el-select v-model="dog.type" placeholder="请选择" :disabled="disabledFlag">
 							    <el-option v-for="item in types" :key="item.value" :label="item.name" :value="item.value"></el-option>
 							</el-select>
 						</el-form-item>
@@ -84,33 +78,25 @@
 				</el-row>
 				<el-row :gutter="20">
 					<el-col :span="12">
-						<el-form-item prop="jinpozhi">
-							<label>紧迫值</label>
-							<el-select v-model="large.jinpozhi" placeholder="请选择" :disabled="disabledFlag">
-							    <el-option v-for="item in jinpozhis" :key="item.value" :label="item.name" :value="item.value"></el-option>
-							</el-select>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
 						<el-form-item prop="money">
 							<label>关联对象</label>
-							<el-select v-model="large.relatedPerson" placeholder="请选择" :disabled="disabledFlag">
+							<el-select v-model="dog.relatedPerson" placeholder="请选择" :disabled="disabledFlag">
 							    <el-option v-for="item in persons" :key="item.value" :label="item.name" :value="item.value"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
-				</el-row>
-				<el-row :gutter="20">
 					<el-col :span="12">
-						<el-form-item prop="reason">
-							<label>说明</label>
-							<el-input v-model="large.reason" auto-complete="off" :disabled="disabledFlag"></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="22">
 						<el-form-item prop="costDate">
 							<label>消费日期</label>
-							<el-date-picker v-model="large.costDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" :disabled="disabledFlag"> </el-date-picker>
+							<el-date-picker v-model="dog.costDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" :disabled="disabledFlag"> </el-date-picker>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row :gutter="20">
+					<el-col :span="22">
+						<el-form-item prop="reason">
+							<label>说明</label>
+							<el-input v-model="dog.reason" auto-complete="off" :disabled="disabledFlag"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -118,7 +104,7 @@
 			<span slot="footer" class="dialog-footer">
 			    <el-button @click="clickCancel" v-show="saveBtn">取 消</el-button>
 			    <el-button @click="dialogVisible = false" v-show="viewBtn">返 回</el-button>
-			    <el-button type="primary" @click="saveLarge(large)" v-show="saveBtn">保 存</el-button>
+			    <el-button type="primary" @click="saveDog(dog)" v-show="saveBtn">保 存</el-button>
 		  	</span>
 		</el-dialog>
 	</div>
@@ -127,9 +113,9 @@
 <script>
 	import fetch from '@/util/fetch';
     
-	const listLargeData = data => fetch('/cost/large/list', data);
-	const save = data => fetch('/cost/large/save', data);
-	const deleteLarge = data => fetch('/cost/large/delete', data);
+	const listDogData = data => fetch('/cost/dog/list', data);
+	const save = data => fetch('/cost/dog/save', data);
+	const deleteDog = data => fetch('/cost/dog/delete', data);
 	const findDictByLabel = data => fetch('/sys/dict/list', data);
 
 	export default {
@@ -137,7 +123,6 @@
 			return {
 				loading: true,
 				queryType: '',
-				queryJinpozhi: '',
 				queryPerson: '',
 				tableData: [],
 				currentRow: null,
@@ -150,10 +135,9 @@
 				viewBtn: false,
 				disabledFlag: false,
 				types: [],
-				jinpozhis: [],
 				persons: [],
 		        type:'',
-				large: {},
+				dog: {},
 				title: '',
 				rowData: {},
 				action: '',
@@ -168,14 +152,13 @@
 
 		},
 		created() {
-			this.getListLargeData();
+			this.getListDogData();
 		},
 		methods: {
 			//用于初次加载页面展示，以及按条件查询
-			async getListLargeData() {
-				let retObj = await listLargeData({
+			async getListDogData() {
+				let retObj = await listDogData({
 					type: this.queryType,
-					jinpozhi: this.queryJinpozhi,
 					relatedPerson: this.queryPerson,
 					page: this.currentPage,
 					size: this.pageSize
@@ -197,9 +180,6 @@
 				if(this.types.length == 0){
 					this.getDictByLabel();
 				}
-				if(this.jinpozhis.length == 0){
-					this.getDictByLabel2();
-				}
 				if(this.persons.length == 0){
 					this.getDictByLabel3();
 				}
@@ -208,7 +188,7 @@
 			// 根据标签获取字典列表
 			async getDictByLabel() {
 				let retObj = await findDictByLabel({
-					label: "cost_large_type",
+					label: "cost_dog_type",
 				});
 				if(retObj.status != 1) {
 					this.$message({
@@ -220,23 +200,6 @@
 				this.types = [];
 				retObj.data.forEach(item =>
 					this.types.push(item)
-				);
-			},
-			// 等级星
-			async getDictByLabel2() {
-				let retObj = await findDictByLabel({
-					label: "dengjixing",
-				});
-				if(retObj.status != 1) {
-					this.$message({
-						type: 'error',
-						message: '获取字典失败'
-					});
-					return;
-				}
-				this.jinpozhis = [];
-				retObj.data.forEach(item =>
-					this.jinpozhis.push(item)
 				);
 			},
 			// 关联对象
@@ -256,7 +219,7 @@
 					this.persons.push(item)
 				);
 			},
-            async saveLarge(rowObj){
+            async saveDog(rowObj){
             	this.dialogVisible = false;
             	this.loading = true;
             	
@@ -265,7 +228,6 @@
             	delete(rowObj.updateUser);
             	delete(rowObj.updateDate);
             	delete(rowObj.typeName);
-            	delete(rowObj.jinpozhiName);
             	delete(rowObj.relatedPersonName);
             	delete(rowObj.delFlag);
             	          
@@ -282,10 +244,10 @@
 					message: '保存数据完成'
 				});
 				
-				this.getListLargeData();
+				this.getListDogData();
             },
             async deleteData(rowObj){
-            	let retObj = await deleteLarge({
+            	let retObj = await deleteDog({
             		id: rowObj.id
             	});
 				if(retObj.status != 1) {
@@ -299,7 +261,7 @@
 					type: 'success',
 					message: '删除成功'
 				});
-				this.getListLargeData();
+				this.getListDogData();
             },
             handleDelete(rowObj){
             	this.$confirm('确定要删除吗？', '提示', {
@@ -319,33 +281,33 @@
 			handleClose(done) {
 				this.$confirm('确认关闭？')
 					.then(_ => {
-						this.$refs['large'].resetFields();
+						this.$refs['dog'].resetFields();
 						done();
 					})
 					.catch(_ => {});
 			},
 			clickCancel(){
 				this.dialogVisible = false;
-				this.$refs['large'].resetFields();
+				this.$refs['dog'].resetFields();
 			},
 			handleSizeChange(val) {
-				this.getListLargeData();
+				this.getListDogData();
 			},
 			handleCurrentChange(val) {
 				this.currentPage = val;
-				this.getListLargeData();
+				this.getListDogData();
 			},
 			queryData() {
-				this.getListLargeData();
+				this.getListDogData();
 			},
 			resetData() {
 				this.queryType = "";
 				this.queryJinpozhi = "";
 				this.queryPerson = "";
-				this.getListLargeData();
+				this.getListDogData();
 			},
 			handleView(rowObj){
-                this.large = rowObj;
+                this.dog = rowObj;
                 
                 this.title = '消费详情';
 				this.dialogVisible = true;
@@ -358,12 +320,12 @@
 				
                 this.action = 'add';
                 this.title = '添加消费';
-                this.large={};
+                this.dog={};
             },
             handleEdit(rowObj){
             	
             	this.preSave();
-                this.large = rowObj;
+                this.dog = rowObj;
                 this.dialogTitle = '编辑消费';
                 
             },
@@ -371,9 +333,6 @@
             	// 获取下拉框的值
 				if(this.types.length == 0){
 					this.getDictByLabel();
-				}
-				if(this.jinpozhis.length == 0){
-					this.getDictByLabel2();
 				}
 				if(this.persons.length == 0){
 					this.getDictByLabel3();

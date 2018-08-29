@@ -13,6 +13,15 @@ const car = r => require.ensure([], () => r(require('@/page/cost/car')), 'car');
 
 const large = r => require.ensure([], () => r(require('@/page/cost/large')), 'large');
 
+const xuebi = r => require.ensure([], () => r(require('@/page/cost/xuebi')), 'xuebi');
+
+const lijin = r => require.ensure([], () => r(require('@/page/cost/lijin')), 'lijin');
+
+const xuebiTimeline = r => require.ensure([], () => r(require('@/page/timeline/xuebiTimeline')), 'xuebiTimeline');
+
+const importPic = r => require.ensure([], () => r(require('@/page/picManager/importPic')), 'importPic');
+
+ const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
 
 
 export default [
@@ -44,5 +53,25 @@ export default [
 		path: '/large',
 		component: large,
 		meta: ['记账本', '大额支出'],
+	},{
+		path: '/xuebi',
+		component: xuebi,
+		meta: ['记账本', '雪碧'],
+	},{
+		path: '/lijin',
+		component: lijin,
+		meta: ['记账本', '礼金管理'],
+	},{
+		path: '/xuebiTimeline',
+		component: xuebiTimeline,
+		meta: ['时间线', '雪碧'],
+	},{
+		path: '/importPic',
+		component: importPic,
+		meta: ['图片管理', '时间线导入基表'],
+	},{
+		path: '/signin',
+		component: signin,
+		meta: ['小工具', '签到表'],
 	}
 ]

@@ -111,7 +111,7 @@
 		  	</span>
 		</el-dialog>
 		
-		<el-dialog :title="title" :visible.sync="oilWearDialog" width="20%" :before-close="handleCloseOilWear">
+		<el-dialog :title="title" :visible.sync="oilWearDialog" width="30%" :before-close="handleCloseOilWear">
 			<h3>油耗详情</h3><br/>
 				<div>
 					<span style="font-weight: bold;">合计时间段：</span><span>{{carOilWear.startTime}}&nbsp;至&nbsp;{{carOilWear.endTime}}</span><br/>
@@ -322,17 +322,17 @@
 				this.getListCarData();
 			},
 			handleView(rowObj){
-                this.car = rowObj;
-                if(this.types.length == 0){
+				this.car = rowObj;
+				if(this.types.length == 0){
 					this.getDictByLabel('car_type');
 				}
-                this.changeType(this.car.type);
-                this.title = '消费详情';
+				this.changeType(this.car.type);
+				this.title = '消费详情';
 				this.dialogVisible = true;
 				this.viewBtn = true;
 				this.saveBtn = false;
 				this.disabledFlag = true;
-            },
+      },
 			handleAddClick(){
 				this.preSave();
 				

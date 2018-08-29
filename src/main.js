@@ -31,6 +31,18 @@ import AreaLazyTree from './comp/AreaLazyTree'
 import AreaSelectTree from './comp/AreaSelectTree'
 import ImportExcel from './comp/ImportExcel'
 
+// 图片懒加载
+import VueLazyLoad from 'vue-lazyload'
+// 图片懒加载配置，error是错误图片，loading是加载中图片，attempt是一次加载的张图。
+Vue.use(VueLazyLoad,{
+    error:require('./assets/img/error.png'),
+    loading:require('./assets/img/loading.gif'),
+	attempt: 1
+})
+
+// vue拦截器的配置（测试）
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 
 Vue.config.productionTip = false;
 

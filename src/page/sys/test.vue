@@ -1,24 +1,42 @@
 <template>  
 	<div>
-		<div>父组件的toCity{{toCity}}</div>  
-		<train-city @showCityName="updateCity" :sendData="toCity"></train-city>  
+		<button @click = "get">get请求</button>
+		<p>{{message}}</p>
 	</div>
 </template>  
 <script>  
-  import TrainCity from "./train-city";  
+	import { baseUrl } from '@/config/env';
+	
   export default {  
-    name:'index',  
-    components: {TrainCity},  
-    data () {  
-      return {  
-        toCity:"北京"  
-      }  
-    },  
-    methods:{  
-      updateCity(data){//触发子组件城市选择-选择城市的事件  
-        this.toCity = data.cityname;//改变了父组件的值  
-        console.log('toCity:'+this.toCity)  
-      }  
-    }  
+    data(){
+			return {
+				message:""
+			}
+    },
+    mounted:function(){
+    	this.$http.interceptors.push(function(request,next){
+    		console.log("正在请求");
+    		next(function(response){
+    			console.log(response.data);
+    			console.log("响应完成")
+    		})
+    	})
+    },
+    methods:{
+    	get: function(){
+				console.log(baseUrl);
+    		this.$http.get(baseUrl + "\\" + "雪碧/微信图片_20170804090121.jpg",{
+    			params:{
+    			},
+    			headers:{
+    			}
+    		}).then(function(res){
+    			this.message = res.data;
+    		},function(err){
+    			this.message = err;
+    		});
+				console.log(this.message);
+    	}
+    }
   }  
 </script> 
