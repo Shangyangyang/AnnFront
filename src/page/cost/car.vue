@@ -128,6 +128,7 @@
 
 <script>
 	import fetch from '@/util/fetch';
+	import {formatTime} from '@/util/dateUtils';
     
 	const listCarData = data => fetch('/cost/car/list', data);
 	const save = data => fetch('/cost/car/save', data);
@@ -229,6 +230,8 @@
 				}
 				
 				this.carOilWear = retObj.data;
+				this.carOilWear.startTime = formatTime(this.carOilWear.startTime);
+				this.carOilWear.endTime = formatTime(this.carOilWear.endTime);
             },
             async saveCar(rowObj){
             	this.dialogVisible = false;
@@ -332,7 +335,7 @@
 				this.viewBtn = true;
 				this.saveBtn = false;
 				this.disabledFlag = true;
-      },
+			},
 			handleAddClick(){
 				this.preSave();
 				
@@ -361,8 +364,7 @@
 				this.viewBtn = false;
 				this.saveBtn = true;
 				this.disabledFlag = false;
-            }
-            
+            },
 		},
         components: {
         }

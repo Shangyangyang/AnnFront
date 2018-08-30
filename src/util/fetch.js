@@ -4,7 +4,7 @@ import qs from 'qs'
 import { baseUrl } from '@/config/env'
 
 axios.defaults.baseURL = baseUrl;
-axios.defaults.timeout = 30000;
+axios.defaults.timeout = 300000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 async function fetch(url, data) {
