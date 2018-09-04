@@ -14,7 +14,7 @@ import './assets/css/commonStyle.css'
 
 import bread from './comp/bread'
 import HeadTop from './comp/HeadTop'
-
+// 字典公共组件
 import DataDict from './comp/DataDict'
 import DictExt from './comp/DictExt'
 
@@ -39,7 +39,7 @@ Vue.use(VueLazyLoad,{
     error:require('./assets/img/error.png'),
     loading:require('./assets/img/loading.gif'),
 	attempt: 1
-})A
+})
 
 Vue.config.productionTip = false;
 
@@ -47,7 +47,7 @@ Vue.use(ElementUI);
 
 Vue.component('head-top',HeadTop);
 Vue.component('bread',bread);
-
+// 字典公共组件
 Vue.component('data-dict',DataDict);
 Vue.component('dict-ext',DictExt);
 

@@ -31,7 +31,6 @@
 
 <script>
 	import fetch from '@/util/fetch';
-	import BigImg from './BigImg.vue';
 	import { baseUrl } from '@/config/env';
 	
 	
@@ -90,7 +89,6 @@
             }
 		},
 		components: {
-			'big-img':BigImg
 		}
 	}
 </script>
