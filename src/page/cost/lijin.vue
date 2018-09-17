@@ -98,7 +98,7 @@
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item prop="youjia">
+						<el-form-item prop="yihuanDate">
 							<label>已还日期</label>
 							<el-date-picker v-model="lijin.yihuanDate" type="date" placeholder="选择日期"
 								format="yyyy-MM-dd"  value-format="yyyy-MM-dd" :disabled="disabledFlag">
@@ -207,11 +207,9 @@
 				this.tableData = [];
 
 				retObj.data.list.forEach(item => {
-						item.inputDate = formatTime(item.inputDate);
-						this.tableData.push(item);
-					}
-
-				);
+					item.inputDate = formatTime(item.inputDate);
+					this.tableData.push(item);
+				});
 				this.dataCount = retObj.data.total;
 			},
 			// 导出为excel
@@ -277,10 +275,6 @@
 					this.deleteData(rowObj);
 				}).catch(() => {});
 			},
-			handleCloseOilWear(done) {
-				this.oilWearDialog = false;
-				done();
-			},
 			handleClose(done) {
 				this.$confirm('确认关闭？')
 					.then(_ => {
@@ -322,6 +316,7 @@
 			},
 			handleAddClick() {
 				this.preSave();
+				this.isyihuanChange();
 				this.action = 'add';
 				this.title = '添加消费';
 				this.lijin = {};

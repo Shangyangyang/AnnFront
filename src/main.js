@@ -22,15 +22,12 @@ import RadioDict from './comp/RadioDict'
 import CheckboxDict from './comp/CheckboxDict'
 import SelectDict from './comp/SelectDict'
 
-import UserSelect from './comp/UserSelect'
-
-import OfficeLazyTree from './comp/OfficeLazyTree'
-import OfficeSelectTree from './comp/OfficeSelectTree'
-
 import AreaLazyTree from './comp/AreaLazyTree'
 import AreaSelectTree from './comp/AreaSelectTree'
 import ImportExcel from './comp/ImportExcel'
 
+// 图片卡片显示组件
+import ImgShow from './comp/myZujian/imgShow'
 
 // 图片懒加载
 import VueLazyLoad from 'vue-lazyload'
@@ -55,14 +52,12 @@ Vue.component('radio-dict',RadioDict);
 Vue.component('checkbox-dict',CheckboxDict);
 Vue.component('select-dict',SelectDict);
 
-Vue.component('user-select',UserSelect);
-
-Vue.component('office-lazy-tree',OfficeLazyTree);
-Vue.component('office-select-tree',OfficeSelectTree);
-
 Vue.component('area-lazy-tree',AreaLazyTree);
 Vue.component('area-select-tree',AreaSelectTree);
 Vue.component('import-excel',ImportExcel);
+
+// 图片卡片显示组件
+Vue.component('img-show',ImgShow);
 
 var app = new Vue({
 	el: '#app',
