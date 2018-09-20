@@ -53,7 +53,26 @@
 		<el-tab-pane name="shotTime" v-if="shotTimeFlag">
 			<span slot="label"><i class="el-icon-time"></i> 修改拍摄时间</span>
 			<div style="text-align: center;">
-				<a @click="shotTimeStart" href="#" style="padding-left: 20px;">>> 开始 <<</a>
+				<a @click="shotTimeStart" href="#" style="padding-left: 20px;" v-if="shotTimeStartFlag">>>&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;<<</a>
+				<a @click="executeShotDateByBack" href="#" style="padding-left: 20px;">[&nbsp;后台执行&nbsp;]</a>
+				<br/>
+				<br/>
+				<div v-if="shotTimeBeginFlag">
+					<img :src="pic.newSrc" style="height: 120px; padding: 10px; border: 1px solid #aaa;"/>
+					<br />
+					<br />
+					<span>{{pic.src}}</span>&emsp;&emsp;<a href="#" @click="guessTimeBySrc">猜日期</a>
+					<br />
+					<br />
+					<span>{{guessTime}}</span>&emsp;&emsp;<a href="#" @click="deleteById(pic)">删除该图片</a>
+					<br />
+					<br />
+					<el-date-picker v-model="guessShotDate" type="date" placeholder="选择日期" format="yyyy-MM-dd HH:mm:ss" 
+						value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+					<br />
+					<br />
+					<a href="#" @click="saveShotDate">>>&emsp;[&nbsp;保&nbsp;&nbsp;存&nbsp;]&emsp;<<</a>
+				</div>
 			</div>			
 		</el-tab-pane>
 		
@@ -62,6 +81,7 @@
 <script>
 	
 	import fetch from '@/util/fetch';
+	import { baseUrl } from '@/config/env';
 	
 	const getLastStatus = data => fetch('/timeline/importPic/getLastStatus', data);	// 获取图片库最新状态
 	const addPic = data => fetch('/timeline/importPic/addPic', data); 				// 启动新增照片
@@ -73,7 +93,12 @@
 	
 	const getEqualMd5 = data => fetch('/timeline/importPic/getEqualMd5', data); // 获取MD5重复的图片List
 	const getEqualFingerPrint = data => fetch('/timeline/importPic/getEqualFingerPrint', data); // 获取文件指纹重复的图片List
-	const deletePic = data => fetch('/timeline/importPic/delete', data); // 获取MD5重复的图片List
+	const deletePic = data => fetch('/timeline/importPic/delete', data); // 删除图片包括物理路径
+	
+	const getShotDateIsnull = data => fetch('/timeline/importPic/getShotDateIsnull', data); // 获取拍摄日期为空的图片记录
+	const executeShotDate = data => fetch('/timeline/importPic/executeShotDate', data); 	// 后台计算并填充拍摄日期为空的记录
+	
+	const save = data => fetch('/timeline/importPic/save', data); // 保存图片，有ID为修改，没有ID为新增。
 	
 	
 	export default {
@@ -86,11 +111,16 @@
 				loop: null,		// 定时器
 				imgs: [],		// 图片集合
 				imgId: '',		// 临时图片ID
+				pic: {},		// 临时对象
+				guessTime: '',	// 猜时间存放属性
+				guessShotDate: '',	// 猜时间结果
 				
 				/*视图控制变量区*/
 				addPicFlag: false,
 				repeatFlag: false,
 				shotTimeFlag: false,
+				shotTimeBeginFlag: false,
+				shotTimeStartFlag: true,	// 拍摄时间修改的开始按钮控制。
 				fingerPrintShowFlag: false,	// 文件指纹控制区显示
 				progressFlag: false,		// 进度控制
 				imgDivFlag: false,			// 去重图片展示
@@ -158,7 +188,6 @@
 			// 获取MD5重复的图片list
 			async getMd5Pic(){
 				let retObj = await getEqualMd5();
-				console.log(retObj);
 				if(retObj.status != 1){
 					if(retObj.code == '400'){
 						this.$message({
@@ -206,6 +235,7 @@
 				
 			},
 			async deleteByImg(op){
+				
 				if(this.imgId == null || this.imgId == '' || this.imgId == undefined) return;
 				let path = '';
 				// 同时把物理路径传过去
@@ -236,6 +266,23 @@
 				
 				this.deleteFlag = false;
 			},
+			async deleteById(op){
+				
+				if(op.id == null || op.id == '' || op.id == undefined) return;
+								
+				let retObj = await deletePic({
+					id: op.id,
+					path: op.path + op.filename,
+				}); 
+				
+				if(retObj.status != 1){
+					this.$message({
+						type: 'error',
+						message: '删除失败'
+					});
+					return;
+				}				
+			},
 			// 跳过该组照片
 			async skipPic(){
 				let arr = "";
@@ -247,7 +294,6 @@
 					arr = arr + str + ";" ;
 				});
 				
-				console.log(arr);
 				
 				let retObj = await skipByTpList({
 					tpList: arr,
@@ -273,6 +319,85 @@
 				
 				retObj.data.forEach(item => this.imgs.push(item));
 				
+			},
+			// 开始拍摄时间修改，调取拍摄时间为空的图片数据
+			async shotTimeStart(){
+				let retObj = await getShotDateIsnull();
+				
+				if(retObj.status != 1){
+					if(retObj.code == '400'){
+						this.$message({
+							type: 'error',
+							message: '已没有可修改拍摄时间的了。'
+						});
+						this.pic = {};
+						return;
+					}
+					this.$message({
+						type: 'error',
+						message: '获取数据失败'
+					});
+					return;
+				}
+				
+				this.pic = {};
+				this.pic = retObj.data;
+				this.pic.newSrc = baseUrl + '/' + this.pic.src;
+				
+				// 先试着解析一下文件名获取拍摄时间
+				this.guessTimeBySrc();
+				
+				this.shotTimeBeginFlag = true;
+				this.shotTimeStartFlag = false;
+			},
+			
+			// 保存拍摄时间，并调取下一组
+			async saveShotDate(){
+				if(this.guessShotDate == null || this.guessShotDate == undefined || this.guessShotDate == ''){
+					this.$message({
+						type: 'error',
+						message: '拍摄时间不能为空'
+					});
+					return;
+				}
+				
+				let retObj = await save({
+					id: this.pic.id,
+					shotDate: this.guessShotDate,
+				});
+				
+				if(retObj.status != 1){
+					this.$message({
+						type: 'error',
+						message: '修改失败'
+					});
+				}
+				
+				this.guessShotDate = '';
+				this.guessTime = '';
+				this.shotTimeStart();
+				
+			},
+			async executeShotDateByBack(){
+				let retObj = await executeShotDate();
+				
+				if(retObj.status != 1){
+					this.$message({
+						type: 'error',
+						message: '执行失败'
+					});
+				}
+				
+				this.$message({
+					type: 'success',
+					message: retObj.data				
+				});
+			},
+			
+			// 拍摄日期那里用的删除图片
+			deleteByPic(op){
+				this.deleteById(op);
+				this.shotTimeStart();
 			},
 			
 			// 根据ID删除图片
@@ -335,10 +460,106 @@
 				if('shotTime' == event)this.shotTimeFlag = false;
 				this.activeName2 = "first";
 			},
-			// 开始拍摄时间修改，调取拍摄时间为空的图片数据
-			shotTimeStart(){
+			guessTimeBySrc(){
+				let str = this.pic.filename;
 				
+				
+				if(str.indexOf('faceu_') == 0){
+					let subStr = str.substr(6, 14);
+					
+					this.guessTime = subStr.substr(0, 4) + '-' + subStr.substr(4, 2) + '-' + subStr.substr(6, 2) + ' ' 
+						+ subStr.substr(8, 2) + ':' + subStr.substr(10, 2) + ':' + subStr.substr(12, 2);
+				}
+				
+				if(str.indexOf('微信图片_') == 0){
+					let subStr = str.substr(5, 14);
+					
+					this.guessTime = subStr.substr(0, 4) + '-' + subStr.substr(4, 2) + '-' + subStr.substr(6, 2) + ' ' 
+						+ subStr.substr(8, 2) + ':' + subStr.substr(10, 2) + ':' + subStr.substr(12, 2);
+				}
+				
+				if(str.indexOf('QQ图片') == 0){
+					let subStr = str.substr(4, 14);
+					
+					this.guessTime = subStr.substr(0, 4) + '-' + subStr.substr(4, 2) + '-' + subStr.substr(6, 2) + ' ' 
+						+ subStr.substr(8, 2) + ':' + subStr.substr(10, 2) + ':' + subStr.substr(12, 2);
+				}
+				
+				if(str.indexOf('IMG_') == 0 && str.length > 19){
+					let subStr = str.substr(4, 15);
+					let arr = subStr.split('_');
+					
+					let dateStr = arr[0].substr(0, 4) + '-' + arr[0].substr(4, 2) + '-' + arr[0].substr(6, 2);
+					let timeStr = arr[1].substr(0, 2) + ':' + arr[1].substr(2, 2) + ':' + arr[1].substr(4, 2);
+					
+					this.guessTime = dateStr + ' ' + timeStr;
+					
+				}
+				
+				if(str.indexOf('B612Kaji_') == 0){
+					// B612Kaji_20180603_231306_600.jpg
+					let subStr = str.substr(9, 15);
+					let arr = subStr.split('_');
+					
+					let dateStr = arr[0].substr(0, 4) + '-' + arr[0].substr(4, 2) + '-' + arr[0].substr(6, 2);
+					let timeStr = arr[1].substr(0, 2) + ':' + arr[1].substr(2, 2) + ':' + arr[1].substr(4, 2);
+					
+					this.guessTime = dateStr + ' ' + timeStr;
+					
+				}
+				
+				if(str.indexOf('mmexport') == 0){
+					// mmexport1500993758999.jpg
+					let subStr = str.substr(8, 13);
+					
+					this.guessTime = this.format(parseInt(subStr));
+					
+				}
+				
+				if(str.indexOf('wx_camera_') == 0){
+					// wx_camera_1500028140900.jpg
+					let subStr = str.substr(10, 13);
+					
+					this.guessTime = this.format(parseInt(subStr));
+					
+				}
+				
+				if(str.indexOf('P') == 0){
+					// 2016\P61006-110001-001.jpg
+					
+					let dateStr = "201" + str.substr(1, 1) + '-' + str.substr(2, 2) + '-' + str.substr(4, 2);
+					
+					let timeStr = str.substr(7, 2) + ':' + str.substr(9, 2) + ':' + str.substr(11, 2);
+					
+					this.guessTime = dateStr + ' ' + timeStr;
+					
+				}
+				
+				if(str.indexOf('B612咔叽_') == 0){
+					let subStr = str.substr(7, 15);
+					
+					let arr = subStr.split('_');
+					
+					let dateStr = arr[0].substr(0, 4) + '-' + arr[0].substr(4, 2) + '-' + arr[0].substr(6, 2);
+					let timeStr = arr[1].substr(0, 2) + ':' + arr[1].substr(2, 2) + ':' + arr[1].substr(4, 2);
+					
+					this.guessTime = dateStr + ' ' + timeStr;
+				}
+				
+				this.guessShotDate = this.guessTime;
 			},
+			format(shijianchuo) {
+				//shijianchuo是整数，否则要parseInt转换
+				var time = new Date(shijianchuo);
+				var y = time.getFullYear();
+				var m = time.getMonth() + 1;
+				var d = time.getDate();
+				var h = time.getHours();
+				var mm = time.getMinutes();
+				var s = time.getSeconds();
+				return y + '-' + this.add0(m) + '-' + this.add0(d) + ' ' + this.add0(h) + ':' + this.add0(mm) + ':' + this.add0(s);
+			},
+			add0(m){return m<10?'0'+m:m },
 			
 			
 			/* 定时任务 */
