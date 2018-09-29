@@ -4,9 +4,9 @@
 		<el-tab-pane label="图片基表管理" name="first">
 			<div style="text-align: center;">
 				<div style="padding-left: 20px;">
-					<a @click="addPicFront" href="#">新增照片</a>&emsp;&emsp;
-					<a @click="repeatPic" href="#">排重</a>&emsp;&emsp;
-					<a @click="shotTime" href="#">修改拍摄时间</a>&emsp;&emsp;
+					<a @click="addPicFront" href="javascript:void(0);">新增照片</a>&emsp;&emsp;
+					<a @click="repeatPic" href="javascript:void(0);">排重</a>&emsp;&emsp;
+					<a @click="shotTime" href="javascript:void(0);">修改拍摄时间</a>&emsp;&emsp;
 				</div>
 				<br/><span>--------------------------------------------------------------------------------</span><br/>
 				<div>
@@ -21,8 +21,8 @@
 		<el-tab-pane name="addPic" v-if="addPicFlag">
 			<span slot="label"><i class="el-icon-picture"></i> 新增照片</span>
 			<div style="text-align: center;">
-				<a @click="addPicBegin" href="#" v-show="!progressFlag" style="padding-left: 20px;">新增照片</a>
-				<a @click="deletePicBegin" href="#" v-show="!progressFlag" style="padding-left: 20px;">删除数据库中已不存在的照片</a>
+				<a @click="addPicBegin" href="javascript:void(0);" v-show="!progressFlag" style="padding-left: 20px;">新增照片</a>
+				<a @click="deletePicBegin" href="javascript:void(0);" v-show="!progressFlag" style="padding-left: 20px;">删除数据库中已不存在的照片</a>
 				
 				<!-- 进度条 -->
 				<div style="width: 50%;" v-show="progressFlag">
@@ -34,12 +34,12 @@
 		<el-tab-pane name="repeat" v-if="repeatFlag">
 			<span slot="label"><i class="el-icon-refresh"></i> 排重</span>
 			<div style="text-align: center;">
-				<a @click="repeatMd5Begin" href="#" style="padding-left: 20px;">Md5排重</a>
-				<a @click="repeatFingerPrintBegin" href="#" style="padding-left: 20px;">文件指纹排重</a>
+				<a @click="repeatMd5Begin" href="javascript:void(0);" style="padding-left: 20px;">Md5排重</a>
+				<a @click="repeatFingerPrintBegin" href="javascript:void(0);" style="padding-left: 20px;">文件指纹排重</a>
 				<br/>
 				<br/>
 				<div v-if="fingerPrintShowFlag">
-					<a href="#" @click="skipPic()" style="padding-left: 20px;">跳过该组照片</a>
+					<a href="javascript:void(0);" @click="skipPic()" style="padding-left: 20px;">跳过该组照片</a>
 				</div>
 				<br/>
 				<br/>
@@ -53,25 +53,25 @@
 		<el-tab-pane name="shotTime" v-if="shotTimeFlag">
 			<span slot="label"><i class="el-icon-time"></i> 修改拍摄时间</span>
 			<div style="text-align: center;">
-				<a @click="shotTimeStart" href="#" style="padding-left: 20px;" v-if="shotTimeStartFlag">>>&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;<<</a>
-				<a @click="executeShotDateByBack" href="#" style="padding-left: 20px;">[&nbsp;后台执行&nbsp;]</a>
+				<a @click="shotTimeStart" href="javascript:void(0);" style="padding-left: 20px;" v-if="shotTimeStartFlag">>>&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;<<</a>
+				<a @click="executeShotDateByBack" href="javascript:void(0);" style="padding-left: 20px;">[&nbsp;后台执行&nbsp;]</a>
 				<br/>
 				<br/>
 				<div v-if="shotTimeBeginFlag">
 					<img :src="pic.newSrc" style="height: 120px; padding: 10px; border: 1px solid #aaa;"/>
 					<br />
 					<br />
-					<span>{{pic.src}}</span>&emsp;&emsp;<a href="#" @click="guessTimeBySrc">猜日期</a>
+					<span>{{pic.src}}</span>&emsp;&emsp;<a href="javascript:void(0);" @click="guessTimeBySrc">猜日期</a>
 					<br />
 					<br />
-					<span>{{guessTime}}</span>&emsp;&emsp;<a href="#" @click="deleteById(pic)">删除该图片</a>
+					<span>{{guessTime}}</span>&emsp;&emsp;<a href="javascript:void(0);" @click="deleteById(pic)">删除该图片</a>
 					<br />
 					<br />
 					<el-date-picker v-model="guessShotDate" type="date" placeholder="选择日期" format="yyyy-MM-dd HH:mm:ss" 
 						value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 					<br />
 					<br />
-					<a href="#" @click="saveShotDate">>>&emsp;[&nbsp;保&nbsp;&nbsp;存&nbsp;]&emsp;<<</a>
+					<a href="javascript:void(0);" @click="saveShotDate">>>&emsp;[&nbsp;保&nbsp;&nbsp;存&nbsp;]&emsp;<<</a>
 				</div>
 			</div>			
 		</el-tab-pane>
@@ -281,7 +281,9 @@
 						message: '删除失败'
 					});
 					return;
-				}				
+				}
+				
+				this.shotTimeStart();
 			},
 			// 跳过该组照片
 			async skipPic(){

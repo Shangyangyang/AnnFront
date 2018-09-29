@@ -20,6 +20,7 @@ const lijin = r => require.ensure([], () => r(require('@/page/cost/lijin')), 'li
 const xuebiTimeline = r => require.ensure([], () => r(require('@/page/timeline/xuebiTimeline')), 'xuebiTimeline');
 
 const importPic = r => require.ensure([], () => r(require('@/page/picManager/importPic')), 'importPic');
+const importXuebi = r => require.ensure([], () => r(require('@/page/picManager/importXuebi')), 'importXuebi');
 
  const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
 
@@ -69,6 +70,10 @@ export default [
 		path: '/importPic',
 		component: importPic,
 		meta: ['图片管理', '时间线导入基表'],
+	},{
+		path: '/importXuebi',
+		component: importXuebi,
+		meta: ['图片管理', '相册筛选-雪碧'],
 	},{
 		path: '/signin',
 		component: signin,

@@ -273,18 +273,18 @@
 					message: '删除成功'
 				});
 				this.getListCarData();
-            },
-            handleDelete(rowObj){
-            	this.$confirm('确定要删除吗？', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning',
-                    center: true
-                }).then(() => {
-                    this.deleteData(rowObj);
-                }).catch(() => {
-                });
-            },
+      },
+			handleDelete(rowObj){
+				this.$confirm('确定要删除吗？', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning',
+							center: true
+					}).then(() => {
+							this.deleteData(rowObj);
+					}).catch(() => {
+					});
+			},
 			handleCloseOilWear(done) {
 					this.oilWearDialog = false;
 					done();
