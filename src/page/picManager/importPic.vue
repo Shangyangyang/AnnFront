@@ -45,7 +45,7 @@
 				<br/>
 				<br/>
 				<div v-show="imgDivFlag">
-					<img-show :imgSrc.sync="item" :imgId.sync="imgId" v-for="item in imgs" @onClick="deleteThisPic"
+					<img-show :imgSrc.sync="item" :imgId.sync="imgId" v-for="(item, index) in imgs" :key="index" @onClick="deleteThisPic"
 						:deleteFlag.sync="deleteFlag"></img-show>
 				</div>
 			</div>

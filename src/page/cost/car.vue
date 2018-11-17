@@ -29,7 +29,7 @@
 							</el-row>
 						</el-form>
 					</div>
-					<el-table :data="tableData" stripe border style="width: 98%">
+					<el-table :data="tableData" stripe border style="width: 100%">
 						<el-table-column prop="inputDate" label="消费日期" width="150"></el-table-column>
 						<el-table-column prop="money" label="金额" width="150"></el-table-column>
 						<el-table-column prop="typeName" label="类型" width="150"></el-table-column>

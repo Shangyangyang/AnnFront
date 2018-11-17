@@ -27,7 +27,13 @@
 		<el-dialog title="查看" :visible.sync="picDialogFlag" width="30%" :before-close="handleClosePicDialog">
 			<h3>与当前照片拍摄日期相差两小时的</h3><br />
 			<div>
-				<img v-for="item in pics" :src="item.pathSrc" style="height: 220px;"/>
+				<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
+			</div>
+		</el-dialog>
+		<el-dialog title="查看" :visible.sync="labelDialogFlag" width="30%" :before-close="handleCloseLabelDialog">
+			<h3>浏览所有的标签</h3><br />
+			<div>
+				<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
 			</div>
 		</el-dialog>
 	</div>
@@ -262,7 +268,7 @@
 <style>
 	.imgDiv {
 		margin: 0 auto;
-		width: 250px;
+		width: 450px;
 		border: 3px solid #666666;
 		padding: 10px;
 		text-align: center;

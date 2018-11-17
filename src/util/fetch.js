@@ -28,4 +28,23 @@ async function fetch(url, data) {
 	return retObj;
 }
 
+axios.interceptors.response.use(function (response) {
+    return response;
+}, function (err) {
+    if (err && err.response) {
+        switch (err.response.status) {
+            case 401:
+                err.message = '未授权，请登录';
+                window.location.href = loginUrl;
+                break;
+            default:
+                err.message = `连接出错(${err.response.status})`;
+        }
+    } else {
+        err.message = '连接服务器失败'
+    }
+    this.$message.error(err.message);
+    return Promise.reject(err);
+});
+
 export default fetch
