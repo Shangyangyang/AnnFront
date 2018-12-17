@@ -58,7 +58,9 @@ export default {
 
         websocketclose(e) {
             //关闭
-            console.log('connection closed (' + e.code + ')');
+            console.log('connection closed (' + e + ')');
+			// 以下为原代码，报错。
+            // console.log('connection closed (' + e.code + ')');
         }
     }
 };

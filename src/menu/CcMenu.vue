@@ -41,7 +41,8 @@
 			<el-menu-item index="userList" v-show="userList">用户管理</el-menu-item>
 			<el-menu-item index="roleList" v-show="roleList">角色管理</el-menu-item>
 			<el-menu-item index="menuList" v-show="menuList">菜单管理</el-menu-item>
-	        <el-menu-item index="test" v-show="test">测试</el-menu-item>
+	        <el-menu-item index="test" v-show="test">测试websocket</el-menu-item>
+	        <el-menu-item index="testCalendar">测试日历签到</el-menu-item>
 	
 		</el-submenu>
 	</div>
