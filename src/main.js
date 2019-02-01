@@ -16,6 +16,7 @@ import bread from './comp/bread'
 import HeadTop from './comp/HeadTop'
 // 字典公共组件
 import DataDict from './comp/DataDict'
+import AreaTree from './comp/AreaTree'
 import DictExt from './comp/DictExt'
 
 import RadioDict from './comp/RadioDict'
@@ -23,8 +24,10 @@ import CheckboxDict from './comp/CheckboxDict'
 import SelectDict from './comp/SelectDict'
 
 import AreaLazyTree from './comp/AreaLazyTree'
-import AreaSelectTree from './comp/AreaSelectTree'
 import ImportExcel from './comp/ImportExcel'
+
+// 引入自定义指令
+import './util/directives.js';
 
 // 图片卡片显示组件
 import ImgShow from './comp/myZujian/imgShow'
@@ -46,6 +49,7 @@ Vue.component('head-top',HeadTop);
 Vue.component('bread',bread);
 // 字典公共组件
 Vue.component('data-dict',DataDict);
+Vue.component('area-tree',AreaTree);
 Vue.component('dict-ext',DictExt);
 
 Vue.component('radio-dict',RadioDict);
@@ -53,7 +57,6 @@ Vue.component('checkbox-dict',CheckboxDict);
 Vue.component('select-dict',SelectDict);
 
 Vue.component('area-lazy-tree',AreaLazyTree);
-Vue.component('area-select-tree',AreaSelectTree);
 Vue.component('import-excel',ImportExcel);
 
 // 图片卡片显示组件
