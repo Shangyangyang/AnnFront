@@ -53,7 +53,7 @@
 		<el-tab-pane name="shotTime" v-if="shotTimeFlag">
 			<span slot="label"><i class="el-icon-time"></i> 修改拍摄时间</span>
 			<div style="text-align: center;">
-				<a @click="shotTimeStart" href="javascript:void(0);" style="padding-left: 20px;" v-if="shotTimeStartFlag">>>&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;<<</a>
+				<a @click="shotTimeStart" href="javascript:void(0);" style="padding-left: 20px;" v-if="shotTimeStartFlag">&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;</a>
 				<a @click="executeShotDateByBack" href="javascript:void(0);" style="padding-left: 20px;">[&nbsp;后台执行&nbsp;]</a>
 				<br/>
 				<br/>
@@ -71,7 +71,7 @@
 						value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
 					<br />
 					<br />
-					<a href="javascript:void(0);" @click="saveShotDate">>>&emsp;[&nbsp;保&nbsp;&nbsp;存&nbsp;]&emsp;<<</a>
+					<a href="javascript:void(0);" @click="saveShotDate">&emsp;[&nbsp;保&nbsp;&nbsp;存&nbsp;]&emsp;</a>
 				</div>
 			</div>			
 		</el-tab-pane>
@@ -159,7 +159,8 @@
 				
 				this.$message({
 					type: 'success',
-					message: retObj.data				
+					message: retObj.data,
+					duration: 0,
 				});
 				// 关闭任务获取
 				this.closeLoop();
@@ -471,6 +472,27 @@
 					
 					this.guessTime = subStr.substr(0, 4) + '-' + subStr.substr(4, 2) + '-' + subStr.substr(6, 2) + ' ' 
 						+ subStr.substr(8, 2) + ':' + subStr.substr(10, 2) + ':' + subStr.substr(12, 2);
+				}
+				
+				// MYXJ_20190112193410_fast.jpg
+				if(str.indexOf('MYXJ_') == 0){
+					let subStr = str.substr(5, 14);
+					
+					this.guessTime = subStr.substr(0, 4) + '-' + subStr.substr(4, 2) + '-' + subStr.substr(6, 2) + ' ' 
+						+ subStr.substr(8, 2) + ':' + subStr.substr(10, 2) + ':' + subStr.substr(12, 2);
+				}
+				
+				// WuTa_2018-10-15_20-31-50
+				if(str.indexOf('WuTa_') == 0){
+					let subStrO = str.substr(5, 19);
+					
+					let arr = subStrO.split('_');
+					let date = arr[0];
+					let time = arr[1].replace(/-/g, ':');
+					
+					this.guessTime = `${date} ${time}`;
+					
+					
 				}
 				
 				if(str.indexOf('微信图片_') == 0){

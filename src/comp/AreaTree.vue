@@ -1,12 +1,14 @@
 <template>
 	<div class="block">
-		<el-dialog title="地区选择" :visible.sync="dialogVisible" width="30%" height="50%" :before-close="handleClose" v-dialogDrag>
+		<el-dialog title="地区选择" :visible.sync="dialogVisible" width="50%" height="50%" :before-close="handleClose" v-dialogDrag>
 			<el-tree 
 				:data="data" 
 				node-key="areaCode"
 				:props="defaultProps" 
 				@node-click="handleNodeClick" 
-				style="background: #ddd; width: 30%;"
+				style="background: #ddd; width: 80%;"
+				:default-expanded-keys="['370102004000']"
+				:default-checked-keys="['370102004000']"
 			></el-tree>
 		</el-dialog>
 		<el-input :value="areaTreeName"  size="medium" readonly="readonly" @focus="choiceArea">
@@ -16,7 +18,7 @@
 </template>
 
 <script>
-import fetch from '@/util/fetch';
+import fetch from '@/util/fetch'; 
 const listDogData = data => fetch('/sys/area/getListByRecursion', data);
 
 export default {
@@ -26,23 +28,43 @@ export default {
 	data() {
 		return {
 			data: [],
+			
 			areaTreeName: '',
 			areaTreeCode: '',
 			defaultProps: {
 				children: 'childrenList',
 				label: 'areaName'
 			},
-
+			cascaderProps: {
+				children: 'childrenList',
+				label: 'areaName',
+				value: 'areaCode'
+			},
+			
+			selectedOptions: [],
+			
 			dialogVisible: false,
 			buttonD: false
 		};
 	},
 	created: function() {
-		console.log(this.defaultCode);
+	},
+	computed: {
+		ac() {
+			console.log(this.areaCode);
+			return this.areaCode;
+		}
+	},
+	watch: {
+		ac(newValue, oldValue) {
+			console.log(this.ac);
+		}
 	},
 	methods: {
 		handleClose(done) {
 			done();
+		},
+		handleChange(value) {
 		},
 		choiceArea() {
 			this.dialogVisible = true;
