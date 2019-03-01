@@ -1,28 +1,21 @@
 const dictList = r => require.ensure([], () => r(require('@/page/cc/dictList')), 'dictList');
-
 const userList = r => require.ensure([], () => r(require('@/page/cc/userList')), 'userList');
-
 const roleList = r => require.ensure([], () => r(require('@/page/cc/roleList')), 'roleList');
-
 const menuList = r => require.ensure([], () => r(require('@/page/cc/menuList')), 'menuList');
-
 const test = r => require.ensure([], () => r(require('@/page/sys/test')), 'test');
 const testCalendar = r => require.ensure([], () => r(require('@/page/sys/testCalendar')), 'testCalendar');
-
 const car = r => require.ensure([], () => r(require('@/page/cost/car')), 'car');
-
 const large = r => require.ensure([], () => r(require('@/page/cost/large')), 'large');
-
 const xuebi = r => require.ensure([], () => r(require('@/page/cost/xuebi')), 'xuebi');
-
 const lijin = r => require.ensure([], () => r(require('@/page/cost/lijin')), 'lijin');
 
 const xuebiTimeline = r => require.ensure([], () => r(require('@/page/timeline/xuebiTimeline')), 'xuebiTimeline');
-
 const importPic = r => require.ensure([], () => r(require('@/page/picManager/importPic')), 'importPic');
 const importXuebi = r => require.ensure([], () => r(require('@/page/picManager/importXuebi')), 'importXuebi');
+const TimelineLabelList = r => require.ensure([], () => r(require('@/page/picManager/TimelineLabelList')), 'TimelineLabelList');
 
 const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
+const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
 
 
 export default [
@@ -79,8 +72,16 @@ export default [
 		component: importXuebi,
 		meta: ['图片管理', '相册筛选-雪碧'],
 	}, {
+		path: '/TimelineLabelList',
+		component: TimelineLabelList,
+		meta: ['图片管理', '标签管理'],
+	}, {
 		path: '/signin',
 		component: signin,
 		meta: ['小工具', '签到表'],
+	},{
+		path: '/login',
+		component: login,
+		meta: ['系统管理', '登录'],
 	},
 ]

@@ -59,7 +59,7 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 var context = config.dev.context
-var proxypath = 'http://localhost:8080';
+var proxypath = 'http://localhost:8088';
 
 var options = {
     target: proxypath,

@@ -19,7 +19,7 @@ module.exports = {
     autoOpenBrowser: true,	// 是否自动打开浏览器
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    context: ['/ann'],			// 斜杠后面一定要添加别名，原因暂时不明
+    context: ['/ann','/captcha'],			// 斜杠后面一定要添加别名，原因暂时不明
     cssSourceMap: false
   }
   

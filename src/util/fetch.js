@@ -2,9 +2,11 @@ import axios from 'axios'
 import qs from 'qs'
 
 import { baseUrl } from '@/config/env'
+import {loginUrl} from '../config/env'
 
 axios.defaults.baseURL = baseUrl;
 axios.defaults.timeout = 300000;
+axios.defaults.withCredentials = true;
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -35,7 +37,9 @@ axios.interceptors.response.use(function (response) {
     if (err && err.response) {
         switch (err.response.status) {
             case 401:
+				// this.$message.error('未授权，请登录');
                 err.message = '未授权，请登录';
+				alert(err.message);
                 window.location.href = loginUrl;
                 break;
             default:
@@ -44,8 +48,8 @@ axios.interceptors.response.use(function (response) {
     } else {
         err.message = '连接服务器失败'
     }
-    this.$message.error(err.message);
     return Promise.reject(err);
 });
+
 
 export default fetch
