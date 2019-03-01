@@ -61,6 +61,7 @@
 				/* 显示控制区 */
 				tableShowFlag: false,
 				picDialogFlag: false,
+				labelDialogFlag: false,
 
 				/* 验证区 */
 				rules: {
@@ -119,6 +120,10 @@
 			// 关闭
 			handleClosePicDialog(done) {
 				this.picDialogFlag = false;
+				done();
+			},
+			handleCloseLabelDialog(done) {
+				this.labelDialogFlag = false;
 				done();
 			},
 			async getList() {

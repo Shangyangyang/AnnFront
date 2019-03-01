@@ -180,13 +180,18 @@
 					page: this.currentPage,
 					size: this.pageSize
 				});
+				
+				if(!retObj) {
+					return;
+				}
 				if(retObj.status != 1) {
 					this.$message({
 						type: 'error',
-						message: '获取数据失败'
+						message: '获取数据失败,' + retObj.message,
 					});
 					return;
 				}
+				
 				this.tableData = [];
 				
 				retObj.data.list.forEach(item =>
@@ -203,7 +208,7 @@
 				let retObj = await findDictByLabel({
 					label: aaa,
 				});
-				if(retObj.status != 1) {
+				if(!retObj || retObj.status != 1) {
 					this.$message({
 						type: 'error',
 						message: '获取字典失败'
@@ -221,7 +226,7 @@
 				this.oilWearDialog = true;
 				
 				let retObj = await getOilWear({});
-				if(retObj.status != 1) {
+				if(!retObj || retObj.status != 1) {
 					this.$message({
 						type: 'error',
 						message: '获取数据失败'
@@ -243,7 +248,7 @@
           
           
             	let retObj = await save(rowObj);
-				if(retObj.status != 1) {
+				if(!retObj || retObj.status != 1) {
 					this.$message({
 						type: 'error',
 						message: '保存数据失败' + retObj.message
@@ -261,7 +266,7 @@
             	let retObj = await deleteCar({
             		id: rowObj.id
             	});
-				if(retObj.status != 1) {
+				if(!retObj || retObj.status != 1) {
 					this.$message({
 						type: 'error',
 						message: '删除失败' + retObj.message
