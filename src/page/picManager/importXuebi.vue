@@ -1,18 +1,34 @@
 <template>
 	<div class="imgDiv">
-		<img style="width: 100%;" :src="pic.pathSrc" /><br />
+		<img style="width: 30%;" :src="pic.pathSrc" /><br />
 		<div>
 			拍摄日期：{{pic.shotDate}} </br></br>
 			<a href="javascript:void(0);" @click="picsView('timeline')">【查看相近的】</a></br></br>
 		</div>
 		<span>
 			<el-form ref="timeline" :rules="rules" :model="timeline" label-width="0px">
-				<el-form-item prop="label">
-					<el-input v-model="timeline.label" size="15" clearable placeholder="请输入标签,逗号隔开"></el-input>
-				</el-form-item>
-				<el-form-item prop="score">
-					<el-input v-model="timeline.score" size="15" clearable placeholder="请输入评分,10分制"></el-input>
-				</el-form-item>
+				<el-row :gutter="20">
+					<el-form-item prop="label">
+						<el-col :span="16">
+							<el-input v-model="timeline.label" size="15" clearable placeholder="请输入标签,逗号隔开" disabled></el-input>
+						</el-col>
+						<el-col :span="8">
+							<select-label 
+								:labelIds.sync="timeline.labelId" 
+								:labelNames.sync="timeline.label" 
+								:removeIds="timeline.labelId"
+							></select-label>
+						</el-col>
+					</el-form-item>
+				</el-row>
+				<el-row :gutter="20">
+						<el-col :span="4">
+							评分：{{timeline.score}}
+						</el-col>
+						<el-col :span="20" style="margin-top: -8px;">
+							<el-slider v-model="timeline.score" :step="1" :max="10" show-stops></el-slider>
+						</el-col>
+				</el-row>
 				<el-form-item prop="reason">
 					<el-input v-model="timeline.reason" clearable placeholder="请输入备注"></el-input>
 				</el-form-item>
@@ -56,7 +72,9 @@
 				/*数据定义区*/
 				pic: {},
 				pics: [],
-				timeline: {},
+				timeline: {
+					score: 5,
+				},
 
 				/* 显示控制区 */
 				tableShowFlag: false,
@@ -82,7 +100,6 @@
 			this.getList();
 		},
 		methods: {
-
 			// 获取相近时间的照片
 			async getSimilarList() {
 				// 数据处理
@@ -170,12 +187,15 @@
 					'pic.id': this.pic.id,
 					type: '1',
 					label: this.timeline.label,
+					labelId: this.timeline.labelId,
 					score: this.timeline.score,
 					reason: this.timeline.reason
 				});
 
 				this.$refs[formName].resetFields();
-				this.timeline = {};
+				this.timeline = {
+					score: 5,
+				};
 				this.getList();
 			},
 			passPic(formName) {
