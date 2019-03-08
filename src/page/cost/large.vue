@@ -218,7 +218,7 @@
 					return;
 				}
 				this.types = [];
-				retObj.data.forEach(item =>
+				retObj.data.list.forEach(item =>
 					this.types.push(item)
 				);
 			},
@@ -235,7 +235,7 @@
 					return;
 				}
 				this.jinpozhis = [];
-				retObj.data.forEach(item =>
+				retObj.data.list.forEach(item =>
 					this.jinpozhis.push(item)
 				);
 			},
@@ -252,7 +252,7 @@
 					return;
 				}
 				this.persons = [];
-				retObj.data.forEach(item =>
+				retObj.data.list.forEach(item =>
 					this.persons.push(item)
 				);
 			},

@@ -216,7 +216,8 @@
 					return;
 				}
 				this.types = [];
-				retObj.data.forEach(item =>
+				
+				retObj.data.list.forEach(item =>
 					this.types.push(item)
 				);
 			},

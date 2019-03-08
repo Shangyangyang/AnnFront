@@ -33,10 +33,10 @@
 						                         title="看不清，单击换一下" style="width: 135px;font-size: 12px;"></div>
 					</el-col>
 				</el-row>
+				<el-button type="primary" @click="checkForm" native-type="submit">登录</el-button>
+				<el-button @click="reset">重置</el-button>
 			</el-form>
 		</div>
-		<el-button type="primary" @click="checkForm">登录</el-button>
-		<el-button @click="reset">重置</el-button>
 	</div>
 </template>
 

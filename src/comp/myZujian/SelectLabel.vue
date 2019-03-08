@@ -106,7 +106,12 @@ export default {
 	},
 	watch: {
 		ids2(newValue, oldValue) {
-			if(!this.removeIds) this.sList = [];
+			// 重置操作
+			if(!this.removeIds) {
+				this.sList = [];
+				this.fetchData();
+				this.labelType = '';
+			}
 		}
 	},
 	methods: {

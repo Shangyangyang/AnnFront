@@ -1,61 +1,66 @@
 <template>
-	<div class="imgDiv">
-		<img style="width: 30%;" :src="pic.pathSrc" /><br />
-		<div>
-			拍摄日期：{{pic.shotDate}} </br></br>
-			<a href="javascript:void(0);" @click="picsView('timeline')">【查看相近的】</a></br></br>
+	<div>
+		<div class="imgDiv" v-show="showList">
+			列表
 		</div>
-		<span>
-			<el-form ref="timeline" :rules="rules" :model="timeline" label-width="0px">
-				<el-row :gutter="20">
-					<el-form-item prop="label">
-						<el-col :span="16">
-							<el-input v-model="timeline.label" size="15" clearable placeholder="请输入标签,逗号隔开" disabled></el-input>
-						</el-col>
-						<el-col :span="8">
-							<select-label 
-								:labelIds.sync="timeline.labelId" 
-								:labelNames.sync="timeline.label" 
-								:removeIds="timeline.labelId"
-							></select-label>
-						</el-col>
+		<div class="imgDiv" v-show="showAddLabel">
+			<img style="width: 50%;" :src="pic.pathSrc" /><br />
+			<div>
+				拍摄日期：{{pic.shotDate}} </br>
+				<a href="javascript:void(0);" @click="picsView('timeline')">【查看相近的】</a></br></br>
+			</div>
+			<span>
+				<el-form ref="timeline" :rules="rules" :model="timeline" label-width="0px">
+					<el-row :gutter="20">
+						<el-form-item prop="label">
+							<el-col :span="16">
+								<el-input v-model="timeline.label" size="15" clearable placeholder="请输入标签,逗号隔开" disabled></el-input>
+							</el-col>
+							<el-col :span="8">
+								<select-label 
+									:labelIds.sync="timeline.labelId" 
+									:labelNames.sync="timeline.label" 
+									:removeIds="timeline.labelId"
+								></select-label>
+							</el-col>
+						</el-form-item>
+					</el-row>
+					<el-row :gutter="20">
+							<el-col :span="4">
+								评分：{{timeline.score}}
+							</el-col>
+							<el-col :span="20" style="margin-top: -8px;">
+								<el-slider v-model="timeline.score" :step="1" :max="10" show-stops></el-slider>
+							</el-col>
+					</el-row>
+					<el-form-item prop="reason">
+						<el-input v-model="timeline.reason" clearable placeholder="请输入备注"></el-input>
 					</el-form-item>
-				</el-row>
-				<el-row :gutter="20">
-						<el-col :span="4">
-							评分：{{timeline.score}}
-						</el-col>
-						<el-col :span="20" style="margin-top: -8px;">
-							<el-slider v-model="timeline.score" :step="1" :max="10" show-stops></el-slider>
-						</el-col>
-				</el-row>
-				<el-form-item prop="reason">
-					<el-input v-model="timeline.reason" clearable placeholder="请输入备注"></el-input>
-				</el-form-item>
-			</el-form>
-
-			<br />
-			<a href="javascript:void(0);" @click="passPic('timeline')">【通过】</a>&emsp;
-			<a href="javascript:void(0);" @click="skipPic('timeline')">【跳过】</a>&emsp;
-			<a href="javascript:void(0);" @click="deletePic('timeline')">【删除】</a>&emsp;
-			<br />
-		</span>
-		<el-dialog title="查看" :visible.sync="picDialogFlag" width="30%" :before-close="handleClosePicDialog">
-			<h3>与当前照片拍摄日期相差两小时的</h3><br />
-			<div>
-				<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
-			</div>
-		</el-dialog>
-		<el-dialog title="查看" :visible.sync="labelDialogFlag" width="30%" :before-close="handleCloseLabelDialog">
-			<h3>浏览所有的标签</h3><br />
-			<div>
-				<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
-			</div>
-		</el-dialog>
+				</el-form>
+				<br />
+				<a href="javascript:void(0);" @click="passPic('timeline')">【通过】</a>&emsp;
+				<a href="javascript:void(0);" @click="skipPic('timeline')">【跳过】</a>&emsp;
+				<a href="javascript:void(0);" @click="deletePic('timeline')">【删除】</a>&emsp;
+				<br />
+			</span>
+			<el-dialog title="查看" :visible.sync="picDialogFlag" width="30%" :before-close="handleClosePicDialog">
+				<h3>与当前照片拍摄日期相差两小时的</h3><br />
+				<div>
+					<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
+				</div>
+			</el-dialog>
+			<el-dialog title="查看" :visible.sync="labelDialogFlag" width="30%" :before-close="handleCloseLabelDialog">
+				<h3>浏览所有的标签</h3><br />
+				<div>
+					<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
+				</div>
+			</el-dialog>
+		</div>
 	</div>
 </template>
 <script>
 	import fetch from '@/util/fetch';
+	import utils from '@/util/utils';
 	import {
 		baseUrl
 	} from '@/config/env';
@@ -65,6 +70,8 @@
 
 	const save = data => fetch('/timeline/save', data); // 保存通过的照片	
 	const saveSkip = data => fetch('/timeline/saveSkip', data); // 保存跳过的照片	
+
+	const updateSelectNum = data => fetch('/timeline/label/updateSelectNum', data);	// 更新标签选择次数，每张图片保存成功后执行
 
 	export default {
 		data() {
@@ -80,6 +87,8 @@
 				tableShowFlag: false,
 				picDialogFlag: false,
 				labelDialogFlag: false,
+				showList: true,
+				showAddLabel: false,
 
 				/* 验证区 */
 				rules: {
@@ -191,11 +200,20 @@
 					score: this.timeline.score,
 					reason: this.timeline.reason
 				});
-
+				
+				// 更新标签选择次数
+				
+				let retObjL = await updateSelectNum({
+					idstr: this.timeline.labelId,
+				});
+				
+				if(!utils.checkResult(retObjL, this)) return false;
+				
 				this.$refs[formName].resetFields();
 				this.timeline = {
 					score: 5,
 				};
+				
 				this.getList();
 			},
 			passPic(formName) {
@@ -239,7 +257,6 @@
 				});
 			},
 			async deletePic2(formName) {
-				debugger;
 				if (this.pic.id == null || this.pic.id == '' || this.pic.id == undefined) return;
 
 				let retObj = await deletePic({

@@ -195,7 +195,7 @@ export default {
 				if (valid) {
 					let retObj = await save(this.formE);
 
-					if (utils.checkResult(retObj)) {
+					if (utils.checkResult(retObj, this)) {
 						this.$message.success('操作成功');
 						this.fetchData();
 
