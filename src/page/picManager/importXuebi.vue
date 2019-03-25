@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<div class="imgDiv" v-show="showList">
-			列表
+		<div v-show="showList">
+			11111111111111
 		</div>
 		<div class="imgDiv" v-show="showAddLabel">
-			<img style="width: 50%;" :src="pic.pathSrc" /><br />
+			<img style="width: 30%;" :src="pic.pathSrc" /><br />
 			<div>
 				拍摄日期：{{pic.shotDate}} </br>
 				<a href="javascript:void(0);" @click="picsView('timeline')">【查看相近的】</a></br></br>
@@ -14,14 +14,16 @@
 					<el-row :gutter="20">
 						<el-form-item prop="label">
 							<el-col :span="16">
-								<el-input v-model="timeline.label" size="15" clearable placeholder="请输入标签,逗号隔开" disabled></el-input>
+								<el-input v-model="timeline.label" size="15" style="color: red;"
+								clearable placeholder="请输入标签,逗号隔开" disabled></el-input>
 							</el-col>
 							<el-col :span="8">
 								<select-label 
 									:labelIds.sync="timeline.labelId" 
 									:labelNames.sync="timeline.label" 
 									:removeIds="timeline.labelId"
-								></select-label>
+								>
+								</select-label>
 							</el-col>
 						</el-form-item>
 					</el-row>
@@ -38,9 +40,9 @@
 					</el-form-item>
 				</el-form>
 				<br />
-				<a href="javascript:void(0);" @click="passPic('timeline')">【通过】</a>&emsp;
-				<a href="javascript:void(0);" @click="skipPic('timeline')">【跳过】</a>&emsp;
-				<a href="javascript:void(0);" @click="deletePic('timeline')">【删除】</a>&emsp;
+				<a href="javascript:void(0);" @click="passPic('timeline')">【通过】</a>&emsp;&emsp;
+				<a href="javascript:void(0);" @click="deletePic('timeline')">【删除】</a>&emsp;&emsp;
+				<a href="javascript:void(0);" @click="skipPic('timeline')">【跳过】</a>&emsp;&emsp;
 				<br />
 			</span>
 			<el-dialog title="查看" :visible.sync="picDialogFlag" width="30%" :before-close="handleClosePicDialog">
@@ -87,8 +89,8 @@
 				tableShowFlag: false,
 				picDialogFlag: false,
 				labelDialogFlag: false,
-				showList: true,
-				showAddLabel: false,
+				showList: false,
+				showAddLabel: true,
 
 				/* 验证区 */
 				rules: {
@@ -318,5 +320,9 @@
 
 	.el-form-item__content {
 		margin-left: 0px;
+	}
+	.el-input.is-disabled .el-input__inner{
+		color: #000000;
+		font-weight: bold;
 	}
 </style>

@@ -23,10 +23,10 @@
 					style="margin: 8px 4px; opacity: 0.8;"
 					v-for="label in list"
 					:key="label.id"
-					:color="label.bgColor"
+					:color="label.bgcolor"
 					@click.native="selectTag(label)"
 				>
-					<font :color="label.color">{{ label.name }}</font>
+					<font :color="label.fontcolor">{{ label.name }}</font>
 				</el-tag>
 			</div>
 			<div style="margin: 8px; padding: 5px; border: 1px solid #aaa;">
@@ -66,12 +66,12 @@ const save = data => fetch('/timeline/label/save', data);
 const deleteData = data => fetch('/timeline/label/delete', data);
 
 export default {
+	// 重置标签的作用
 	props:['removeIds'],
 	
 	data() {
 		return {
 			list: [],
-
 			sList: [],
 			typeList: [
 				{ name: '地点', value: '1' },
@@ -171,30 +171,12 @@ export default {
 			if (utils.checkResult(retObj, this)) {
 				this.list = [];
 				retObj.data.list.forEach(item => {
-					let arr = this.getColor();
-
-					item.bgColor = arr[0];
-					item.color = arr[1];
-
 					this.list.push(item);
 				});
 			}
 
 			this.listC = JSON.stringify(this.list);
 		},
-		getColor() {
-			let r = utils.rnd(255, 150);
-			let g = utils.rnd(255, 150);
-			let b = utils.rnd(255, 150);
-			let str = r + ',' + g + ',' + b;
-			let str2 = '#fff';
-
-			if (r + g + b > 382.5) {
-				str2 = '#000';
-			}
-
-			return [`rgb(${str})`, str2];
-		}
 	}
 };
 </script>

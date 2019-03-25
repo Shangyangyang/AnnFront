@@ -12,6 +12,7 @@
 		<div>
 			<div style="margin-top: 15px; margin-left: 17px; margin-bottom: 20px;">
 				<el-button @click="addLabel" plain type="primary">新增</el-button>
+				<el-button @click="openQuickDialog" plain type="primary">管理快速选择</el-button>
 				<!-- <el-button @click="updateLabel" plain type="primary">更新</el-button> -->
 			</div>
 			<el-table :data="list" style="width: 100%" stripe border>
@@ -135,6 +136,7 @@ export default {
 			],
 			belongList: [{ name: '雪碧', value: '1' }, { name: '乐乐', value: '2' }],
 			form: {},
+			quickForm: {},
 			formE: {
 				type: '',
 				belong: ''
@@ -142,6 +144,7 @@ export default {
 			resetForm: '',
 
 			editDialogFlag: false,
+			quickDialogFlag: false,
 
 			count: 2,
 			currentPage: 1,
@@ -160,6 +163,25 @@ export default {
 		this.fetchData();
 	},
 	methods: {
+		// 打开管理快速选择dialog
+		openQuickDialog(){
+			this.quickDialogFlag = true;
+			this.fetchQuickData();
+		},
+		// 获取快速选择列表
+		async fetchQuickData(){
+			this.quickForm.page = this.quickCurrentPage;
+			this.quickForm.size = this.quickPageSize;
+			
+			let retObj = await list(this.quickForm);
+			if (utils.checkResult(retObj, this)) {
+				this.list = [];
+			
+				this.list.push(...retObj.data.list);
+				this.dataCount = retObj.data.total;
+			}
+		},
+		
 		addLabel() {
 			// 审核状态默认通过
 			this.formE.status = '1';
@@ -193,6 +215,8 @@ export default {
 		async save2() {
 			this.$refs['formE'].validate(async valid => {
 				if (valid) {
+					this.formE.bgcolor = this.getColor();
+					this.formE.fontcolor = '#000';
 					let retObj = await save(this.formE);
 
 					if (utils.checkResult(retObj, this)) {
@@ -208,6 +232,14 @@ export default {
 					return false;
 				}
 			});
+		},
+		getColor() {
+			let r = utils.rnd(255, 150);
+			let g = utils.rnd(255, 150);
+			let b = utils.rnd(255, 150);
+			let str = r + ',' + g + ',' + b;
+		
+			return `rgb(${str})`;
 		},
 		handleClose(done) {
 			this.$confirm('确认关闭？')
