@@ -5,6 +5,7 @@
 			:visible.sync="dialogVisible"
 			width="60%"
 			:before-close="handleClose"
+			:append-to-body="true"
 		>
 			<div style="margin: 8px; padding: 5px; border: 1px solid #aaa;">
 				<el-radio-group
@@ -92,6 +93,7 @@ export default {
 			listC: '', // 复制品
 			ids: '',
 			names: '',
+			idnames: '',
 
 			dialogVisible: false
 		};
@@ -120,17 +122,22 @@ export default {
 			this.doChangeVal();
 		},
 		doChangeVal(){
-			this.ids = '';
-			this.names = '';
+			// 重置
+			this.ids = this.names = this.idnames = '';
+			
 			this.sList.forEach(item => {
 				this.ids = `${this.ids}${this.ids ? ',' : ''}${item.id}`;
 				this.names = `${this.names}${this.names ? ',' : ''}${item.name}`;
+				this.idnames = `${this.idnames}${item.id},${item.name};`;
 			});
+			
 			this.ids = this.ids == '' ? '' : `${this.ids},`;
 			this.names = this.names == '' ? '' : `${this.names},`;
 			
 			this.$emit('update:labelIds', this.ids);
 			this.$emit('update:labelNames', this.names);
+			this.$emit('update:labels', this.idnames);
+			console.log(this.idnames);
 			this.$emit('onSelect');
 		},
 		handleClose(done) {
@@ -168,7 +175,7 @@ export default {
 			this.form.belong = Constants.TIMELINE_LABEL_BELONG_XUEBI;
 
 			let retObj = await list(this.form);
-			if (utils.checkResult(retObj, this)) {
+			if (utils.checkResult(retObj, this)) { 
 				this.list = [];
 				retObj.data.list.forEach(item => {
 					this.list.push(item);

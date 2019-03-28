@@ -193,7 +193,8 @@
 				if (this.timeline.label != '') {
 					this.timeline.label = this.timeline.label.replace(/，/g, ",");
 				}
-
+				
+				// 保存
 				let retObj = await save({
 					'pic.id': this.pic.id,
 					type: '1',
@@ -204,7 +205,6 @@
 				});
 				
 				// 更新标签选择次数
-				
 				let retObjL = await updateSelectNum({
 					idstr: this.timeline.labelId,
 				});
