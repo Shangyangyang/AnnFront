@@ -1,8 +1,5 @@
 <template>
 	<div>
-		<div v-show="showList">
-			11111111111111
-		</div>
 		<div class="imgDiv" v-show="showAddLabel">
 			<img style="width: 30%;" :src="pic.pathSrc" /><br />
 			<div>
@@ -89,7 +86,6 @@
 				tableShowFlag: false,
 				picDialogFlag: false,
 				labelDialogFlag: false,
-				showList: false,
 				showAddLabel: true,
 
 				/* 验证区 */
@@ -259,33 +255,33 @@
 				});
 			},
 			async deletePic2(formName) {
-				if (this.pic.id == null || this.pic.id == '' || this.pic.id == undefined) return;
-
-				let retObj = await deletePic({
-					id: this.pic.id,
-					path: this.pic.path + this.pic.filename,
-				});
-
-				if (retObj.status != 1) {
-					this.$message({
-						type: 'error',
-						message: '删除失败'
-					});
-					return;
-				}
-
-				this.$refs[formName].resetFields();
-				this.timeline = {};
-				this.getList();
+				
 			},
-			deletePic(formName) {
+			async deletePic(formName) {
 				this.$confirm('确定要删除该图片吗?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning',
 					center: true
-				}).then(() => {
-					this.deletePic2(formName);
+				}).then( async () => {
+					if (this.pic.id == null || this.pic.id == '' || this.pic.id == undefined) return;
+					
+					let retObj = await deletePic({
+						id: this.pic.id,
+						path: this.pic.path + this.pic.filename,
+					});
+					
+					if (retObj.status != 1) {
+						this.$message({
+							type: 'error',
+							message: '删除失败'
+						});
+						return;
+					}
+					
+					this.$refs[formName].resetFields();
+					this.timeline = {score: 5};
+					this.getList();
 				}).catch((e) => {
 					return;
 				});

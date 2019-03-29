@@ -42,6 +42,14 @@ Vue.use(VueLazyLoad, {
 	attempt: 1
 })
 
+// 图片展示，可放大缩小
+import imageViewer from './comp/imageViewer'
+Vue.use(imageViewer);
+
+// 系统导航
+import BreadHead from './comp/myZujian/BreadHead'
+Vue.component('bread-head', BreadHead);
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);

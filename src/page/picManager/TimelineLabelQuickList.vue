@@ -3,7 +3,7 @@
 		<div style="margin: 20px 0px 10px; padding: 10px 17px 10px; background-color: #eee;">
 			<el-breadcrumb separator=">>">
 				<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-				<el-breadcrumb-item :to="{ path: '/TimelineLabelList' }">
+				<el-breadcrumb-item :to="{ path: '/xuebiList' }">
 					图片管理
 				</el-breadcrumb-item>
 				<el-breadcrumb-item :to="{ path: '/TimelineLabelList' }">
@@ -19,7 +19,7 @@
 			<el-table :data="list" style="width: 100%" stripe border>
 				<el-table-column type="index" :index="index => index + 1"></el-table-column>
 				<el-table-column prop="name" label="别名" width="180"></el-table-column>
-				<el-table-column prop="typeName" label="类型" width="180"></el-table-column>
+				<el-table-column prop="selectNum" label="选择次数" width="180"></el-table-column>
 				<el-table-column prop="labelName" label="标签组合"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
@@ -79,7 +79,6 @@
 										:labels.sync="formE.labels"
 									>
 									</select-label>
-									{{formE.labels}}
 								</el-col>
 							</el-form-item>
 						</el-col>
@@ -175,7 +174,6 @@ export default {
 						this.editDialogFlag = false;
 					}
 				} else {
-					console.log('error submit!!');
 					return false;
 				}
 			});
@@ -213,8 +211,6 @@ export default {
 				retObj.data.list.forEach(item => {
 					let arr = item.labels.split(';');
 					let labelName = '';
-					
-					console.log(arr);
 					
 					arr.forEach(label =>{
 						if(label){

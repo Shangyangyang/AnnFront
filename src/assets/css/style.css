@@ -831,3 +831,44 @@
         width: 100%;
     }
 }
+
+/* table样式 */
+.pageTitle .pageLeftRight{
+    padding: 1%;
+}
+.pageTitle .pageBtn+.pageLeftRight{
+    padding: 0 1% 10px;
+}
+
+.pageTitle .pageLeftRight .Pagination{
+    text-align: right;
+}
+.pageTitle .pageLeftRight .el-pagination{
+    padding: 10px 5px;
+}
+
+.pageTitle .pageLeftRight .el-select{width: 100%;}
+
+.pageLeftRight table.tbStyle td a{ margin:0 4px; }
+
+.pageHelp .pageLeftRight{ background: white; padding:20px 40px !important; }
+
+.tabx{ width:97%; overflow-x: auto; }
+.tabx table{ width:1610px; margin:0 auto;}
+
+
+/*原生table的样式设置*/
+.annTable,
+.annTable tr th,
+.annTable tr td {
+	border: 1px solid #ddd;
+}
+.annTable {
+	width: 200px;
+	min-height: 25px;
+	line-height: 25px;
+	text-align: center;
+	border-collapse: collapse;
+	padding: 2px;
+}
+/*==================================*/

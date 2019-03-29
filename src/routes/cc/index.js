@@ -9,6 +9,7 @@ const large = r => require.ensure([], () => r(require('@/page/cost/large')), 'la
 const xuebi = r => require.ensure([], () => r(require('@/page/cost/xuebi')), 'xuebi');
 const lijin = r => require.ensure([], () => r(require('@/page/cost/lijin')), 'lijin');
 
+const xuebiList = r => require.ensure([], () => r(require('@/page/picManager/xuebiList')), 'xuebiList');
 const xuebiTimeline = r => require.ensure([], () => r(require('@/page/timeline/xuebiTimeline')), 'xuebiTimeline');
 const importPic = r => require.ensure([], () => r(require('@/page/picManager/importPic')), 'importPic');
 const importXuebi = r => require.ensure([], () => r(require('@/page/picManager/importXuebi')), 'importXuebi');
@@ -79,6 +80,11 @@ export default [
 		path: '/importPic',
 		component: importPic,
 		meta: ['图片管理', '时间线导入基表'],
+	}, 
+	{
+		path: '/xuebiList',
+		component: xuebiList,
+		meta: ['图片管理', '雪碧列表'],
 	}, 
 	{
 		path: '/importXuebi',
