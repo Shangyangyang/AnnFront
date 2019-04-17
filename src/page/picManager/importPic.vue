@@ -7,6 +7,7 @@
 					<a @click="addPicFront" href="javascript:void(0);">新增照片</a>&emsp;&emsp;
 					<a @click="repeatPic" href="javascript:void(0);">排重</a>&emsp;&emsp;
 					<a @click="shotTime" href="javascript:void(0);">修改拍摄时间</a>&emsp;&emsp;
+					<a @click="genThumbnail" href="javascript:void(0);">生成缩略图</a>&emsp;&emsp;
 				</div>
 				<br/><span>--------------------------------------------------------------------------------</span><br/>
 				<div>
@@ -99,6 +100,7 @@
 	const executeShotDate = data => fetch('/timeline/importPic/executeShotDate', data); 	// 后台计算并填充拍摄日期为空的记录
 	
 	const save = data => fetch('/timeline/importPic/save', data); // 保存图片，有ID为修改，没有ID为新增。
+	const genThumbnail = data => fetch('/timeline/importPic/genThumbnail', data); // 生成缩略图
 	
 	
 	export default {
@@ -132,6 +134,9 @@
 			this.getLastStatus();
 		},
 		methods: {
+			async genThumbnail(){
+				let retObj = await genThumbnail();
+			},
 			async getLastStatus(){
 				let retObj = await getLastStatus();
 				if(retObj.status != 1){
@@ -181,6 +186,8 @@
 				
 				this.$message({
 					type: 'success',
+					duration: 0,
+					showClose: true,
 					message: retObj.data				
 				});
 				// 关闭任务获取

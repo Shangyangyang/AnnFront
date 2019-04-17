@@ -91,7 +91,7 @@
 			height: 60px;
 			line-height: 60px;
 			color: #fff;
-			overflow: hidden;
+			// overflow: hidden;
 			img{
 				width: 44px;
 				height: 44px;
@@ -117,7 +117,7 @@
 	.kfLogo{
 		height: 60px;
 		line-height: 60px;
-		overflow: hidden;
+		// overflow: hidden;
 	}
 	.kfLogo img{
 		vertical-align: middle;

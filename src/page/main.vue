@@ -43,23 +43,22 @@
     	components: {
 			CcMenu
 		},
-
         data() {
             return {
-                isCollapse: false
+                isCollapse: false,
             };
         },
 
         computed: {
             defaultActive: function(){
                 return this.$route.path.replace('/', '');
-            }
-        },
+            },
 
+        },
         methods: {
             collapseC: function () {
                 this.isCollapse = !this.isCollapse;
-            }
+            },
         }
     }
 </script>

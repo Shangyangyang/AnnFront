@@ -2,9 +2,7 @@
 	<div>
 		<bread-head></bread-head>
 		<div>
-			<div style="margin-top: 15px; margin-left: 17px; margin-bottom: 20px;">
-				<el-button plain type="primary">新增</el-button>
-			</div>
+			<div style="margin-top: 15px; margin-left: 17px; margin-bottom: 20px;"><el-button plain type="primary">新增</el-button></div>
 			<div class="pageLeftRight tabx">
 				<table class="annTable">
 					<tr style="background-color: #ddd;">
@@ -16,16 +14,13 @@
 					</tr>
 					<tr v-for="(item, index) in list" :key="index">
 						<td>{{ index + 1 }}</td>
-						<td><img :src="item.pathSrc" height="90px" @click="$imageViewer" /></td>
-						<td>{{ item.label }}</td>
 						<td>
-							<el-rate
-								v-model="item.score / 2"
-								disabled
-								show-score
-								text-color="#999999"
-							></el-rate>
+							<div style="width: 100px; height: 100px;">
+								<div class="divContent"><img :src="item.pathSrc" @click="$imageViewer" /></div>
+							</div>
 						</td>
+						<td>{{ item.label }}</td>
+						<td><el-rate v-model="item.score / 2" disabled show-score text-color="#999999"></el-rate></td>
 						<td>{{ item.pic.shotDate }}</td>
 					</tr>
 				</table>
@@ -67,9 +62,8 @@ export default {
 		};
 	},
 	created: function() {
-		
 		console.log(this.$route.meta);
-		
+
 		this.resetForm = JSON.stringify(this.form);
 		this.fetchData();
 	},
@@ -100,3 +94,17 @@ export default {
 	}
 };
 </script>
+<style type="text/css">
+.divContent {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+}
+.divContent img {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+</style>

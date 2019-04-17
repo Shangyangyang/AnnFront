@@ -74,7 +74,7 @@ export default [
 	{
 		path: '/xuebiTimeline',
 		component: xuebiTimeline,
-		meta: ['时间线', '雪碧'],
+		meta: ['雪碧时光轴', '雪碧时光轴'],
 	}, 
 	{
 		path: '/importPic',

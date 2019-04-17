@@ -13,9 +13,9 @@
 		<el-submenu index="4" v-show="ControlMenu">
 			<template slot="title">
 				<i class="el-icon-document"></i>
-				<span slot="title">时间线</span>
+				<span slot="title">雪碧时光轴</span>
 			</template>
-			<el-menu-item index="xuebiTimeline" v-show="xuebiTimeline">雪碧</el-menu-item>
+			<el-menu-item index="xuebiTimeline" v-show="xuebiTimeline">雪碧时光轴</el-menu-item>
 		</el-submenu>
 		<el-submenu index="5" v-show="ControlMenu">
 			<template slot="title">
