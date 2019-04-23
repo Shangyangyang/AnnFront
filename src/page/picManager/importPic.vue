@@ -166,6 +166,7 @@
 					type: 'success',
 					message: retObj.data,
 					duration: 0,
+					showClose: true,
 				});
 				// 关闭任务获取
 				this.closeLoop();

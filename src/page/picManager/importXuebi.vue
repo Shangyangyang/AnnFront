@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="imgDiv" v-show="showAddLabel">
-			<img style="width: 30%;" :src="pic.pathSrc" /><br />
+			<img style="width: 30%;" :src="pic.pathSrc" preview="0" :preview-text="pic.shotDate"/><br />
 			<div>
 				拍摄日期：{{pic.shotDate}} </br>
 				<a href="javascript:void(0);" @click="picsView('timeline')">【查看相近的】</a></br></br>
