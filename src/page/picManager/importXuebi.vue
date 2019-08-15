@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<div class="imgDiv" v-show="showAddLabel">
-			<img style="width: 30%;" :src="pic.pathSrc" preview="0" :preview-text="pic.shotDate"/><br />
+			<!-- <img style="width: 30%;" :src="pic.pathSrc" preview="0" :preview-text="pic.shotDate"/> -->
+			<vue-preview :slides="slide1"></vue-preview>
+			<br />
 			<div>
 				拍摄日期：{{pic.shotDate}} </br>
 				<a href="javascript:void(0);" @click="picsView('timeline')">【查看相近的】</a></br></br>
@@ -36,20 +38,19 @@
 						<el-input v-model="timeline.reason" clearable placeholder="请输入备注"></el-input>
 					</el-form-item>
 				</el-form>
-				<br />
-				<a href="javascript:void(0);" @click="passPic('timeline')">【通过】</a>&emsp;&emsp;
-				<a href="javascript:void(0);" @click="deletePic('timeline')">【删除】</a>&emsp;&emsp;
-				<a href="javascript:void(0);" @click="skipPic('timeline')">【跳过】</a>&emsp;&emsp;
-				<br />
-			</span>
-			<el-dialog title="查看" :visible.sync="picDialogFlag" width="30%" :before-close="handleClosePicDialog">
-				<h3>与当前照片拍摄日期相差两小时的</h3><br />
-				<div>
-					<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
+				<div style="padding: 10px; border: #aaa 1px solid; margin-top: 10px;">
+					<el-button type="primary" @click="passPic('timeline')">【通过】</el-button>
+					<el-button type="info" @click="deletePic('timeline')">【删除】</el-button>
 				</div>
-			</el-dialog>
-			<el-dialog title="查看" :visible.sync="labelDialogFlag" width="30%" :before-close="handleCloseLabelDialog">
-				<h3>浏览所有的标签</h3><br />
+				<div style="padding: 10px; border: #aaa 1px solid; margin-top: 10px; color: #666; font-family: '楷体';">
+					{{rateText}}
+				</div>
+				<div style="padding: 10px;">
+					<el-button icon="el-icon-arrow-left" @click="backTo()">返回</el-button>
+				</div>
+			</span>
+			<el-dialog title="查看" :visible.sync="picDialogFlag" width="60%" :before-close="handleClosePicDialog">
+				<h3>与当前照片拍摄日期相差一小时的</h3><br />
 				<div>
 					<img v-for="(item, index) in pics" :src="item.pathSrc" :key="index" style="height: 220px;"/>
 				</div>
@@ -63,24 +64,35 @@
 	import {
 		baseUrl
 	} from '@/config/env';
+	
+	import { fmtDate } from '@/util/dateUtils';
+	
 
 	const listData = data => fetch('/timeline/importPic/list', data); // 获取图片库最新状态
 	const deletePic = data => fetch('/timeline/importPic/delete', data); // 删除图片包括物理路径
 
 	const save = data => fetch('/timeline/save', data); // 保存通过的照片	
 	const saveSkip = data => fetch('/timeline/saveSkip', data); // 保存跳过的照片	
+	const getTimelineInfo = data => fetch('/timeline/getTimelineInfo', data);	// 获取时光轴中未筛选已筛选的记录
 
 	const updateSelectNum = data => fetch('/timeline/label/updateSelectNum', data);	// 更新标签选择次数，每张图片保存成功后执行
+
+	const MAX_SIZE = 700;
 
 	export default {
 		data() {
 			return {
 				/*数据定义区*/
-				pic: {},
 				pics: [],
+				slide1: [],
+				
 				timeline: {
 					score: 5,
 				},
+				
+				pic: {},
+				
+				rateText: '暂无信息',
 
 				/* 显示控制区 */
 				tableShowFlag: false,
@@ -105,21 +117,24 @@
 		},
 		created: function() {
 			this.getList();
+			this.getTimelineInfo();
 		},
 		methods: {
 			// 获取相近时间的照片
 			async getSimilarList() {
 				// 数据处理
 				let nowTime = this.pic.shotDate;
-				let twoHour = 1000 * 60 * 120;
-
-				let beginTime = this.fmtDate(new Date(Date.parse(new Date(nowTime)) - twoHour), 'yyyy-MM-dd hh:mm:ss');
-				let endTime = this.fmtDate(new Date(Date.parse(new Date(nowTime)) + twoHour), 'yyyy-MM-dd hh:mm:ss');
-
+				let twoHour = 1000 * 60 * 30;
+				
+				let beginTime = fmtDate(new Date(Date.parse(new Date(nowTime)) - twoHour), 'yyyy-MM-dd hh:mm:ss');
+				let endTime = fmtDate(new Date(Date.parse(new Date(nowTime)) + twoHour), 'yyyy-MM-dd hh:mm:ss');
+				
 				let retObj = await listData({
 					beginShotDate: beginTime,
 					endShotDate: endTime,
 					preSrc: '雪碧',
+					page: 1,
+					size: 0,
 				});
 
 				if (retObj.status != 1) {
@@ -131,9 +146,8 @@
 				}
 				
 				this.pics = [];
-
 				retObj.data.list.forEach(item => {
-					item.pathSrc = baseUrl + '/' + item.src;
+					item.pathSrc = baseUrl + '/' + item.srcThumbnail;
 					this.pics.push(item);
 				});
 			},
@@ -149,6 +163,16 @@
 			handleCloseLabelDialog(done) {
 				this.labelDialogFlag = false;
 				done();
+			},
+			async getTimelineInfo(){
+				let retObj = await getTimelineInfo();
+				
+				if(!retObj || retObj.status != 1){
+					this.$message.error('获取时光轴信息失败，' + retObj.message);
+					return;
+				}
+				
+				this.rateText = `已筛选: ${retObj.data.yiShaixuan} ,  未筛选: ${retObj.data.weiShaixuan}`;
 			},
 			async getList() {
 				let retObj = await listData({
@@ -179,9 +203,54 @@
 					});
 					return;
 				}
-
-				this.pic = retObj.data.list[0];
-				this.pic.pathSrc = baseUrl + '/' + this.pic.src;
+				
+				this.slide1 = [];
+				let p = this.pic = retObj.data.list[0];
+				let vueP = {
+					src: baseUrl + '/' + p.src,
+					msrc: baseUrl + '/' + p.srcThumbnail,
+					title: p.shotDate,
+					w: 0,
+					h: 0,
+				}
+				
+				this.slide1.push(vueP);
+				
+				// 图片地址 后面加时间戳是为了避免缓存
+				var img_url = baseUrl + '/' + p.src + '?' + Date.parse(new Date());
+				  
+				// 创建对象
+				var img = new Image();
+				  
+				// 改变图片的src
+				img.src = img_url;
+				
+				// 加载完成执行
+				img.onload = function(){
+					// 打印
+					let w = img.width;
+					let h = img.height;
+					let mw = 0;
+					let mh = 0;
+					
+					if(w >= h){
+						mw = MAX_SIZE;
+						let per = MAX_SIZE / w;
+						mh = h * per;
+					}
+					if(h >= w){
+						mh = MAX_SIZE;
+						let per = MAX_SIZE / h;
+						mw = w * per;
+					}
+					
+					// console.log('mw: ' + mw);
+					// console.log('mh: ' + mh);
+					
+					vueP.w = mw;
+					vueP.h = mh;
+				};
+				// this.pic.pathSrc = baseUrl + '/' + this.pic.srcThumbnail;
 
 			},
 			async passPic2(formName) {
@@ -213,6 +282,7 @@
 				};
 				
 				this.getList();
+				this.getTimelineInfo();
 			},
 			passPic(formName) {
 				this.$refs[formName].validate((valid) => {
@@ -286,22 +356,9 @@
 					return;
 				});
 			},
-			fmtDate(date, fmt) { //author: meizz 
-				var o = {
-					"M+": date.getMonth() + 1, //月份 
-					"d+": date.getDate(), //日 
-					"h+": date.getHours(), //小时 
-					"m+": date.getMinutes(), //分 
-					"s+": date.getSeconds(), //秒 
-					"q+": Math.floor((date.getMonth() + 3) / 3), //季度 
-					"S": date.getMilliseconds() //毫秒 
-				};
-				if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-				for (var k in o)
-					if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" +
-						o[k]).substr(("" + o[k]).length)));
-				return fmt;
-			}
+			backTo() {
+				this.$router.go(-1);
+			},
 		}
 	};
 </script>

@@ -7,7 +7,7 @@
 					<a @click="addPicFront" href="javascript:void(0);">新增照片</a>&emsp;&emsp;
 					<a @click="repeatPic" href="javascript:void(0);">排重</a>&emsp;&emsp;
 					<a @click="shotTime" href="javascript:void(0);">修改拍摄时间</a>&emsp;&emsp;
-					<a @click="genThumbnail" href="javascript:void(0);">生成缩略图</a>&emsp;&emsp;
+					<!-- <a @click="genThumbnail" href="javascript:void(0);">生成缩略图</a>&emsp;&emsp; -->
 				</div>
 				<br/><span>--------------------------------------------------------------------------------</span><br/>
 				<div>

@@ -203,6 +203,11 @@ export default {
 			}
 
 			this.listC = JSON.stringify(this.list);
+			
+			this.list.sort(this.sortByStrLength);
+		},
+		sortByStrLength(str1, str2){
+			return str1.name.length - str2.name.length;
 		},
 		async fetchQuickData() {
 			if(!this.quickList || this.quickList.length == 0){

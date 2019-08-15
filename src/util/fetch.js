@@ -37,9 +37,7 @@ axios.interceptors.response.use(function (response) {
     if (err && err.response) {
         switch (err.response.status) {
             case 401:
-				// this.$message.error('未授权，请登录');
-                err.message = '未授权，请登录';
-				alert(err.message);
+				// this.$message.error('未授权，请登录');				
                 window.location.href = loginUrl;
                 break;
             default:

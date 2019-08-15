@@ -31,7 +31,7 @@ export default {
 
 			form: {
 				timeType: '1',	// 以年查询
-				// type: '1',	// 雪碧
+				type: '1',	// 雪碧
 				shotDateL: ''
 			},
 		};

@@ -24,7 +24,6 @@
 			</template>
 			<el-menu-item index="xuebiList" v-show="xuebiList">雪碧列表</el-menu-item>
 			<el-menu-item index="importPic" v-show="importPic">时间线导入基表</el-menu-item>
-			<el-menu-item index="importXuebi" v-show="importXuebi">相册筛选-雪碧</el-menu-item>
 			<el-menu-item index="TimelineLabelList" v-show="TimelineLabelList">标签管理</el-menu-item>
 		</el-submenu>
 		<el-submenu index="6" v-show="ControlMenu">
@@ -86,9 +85,6 @@
                 return true;
             },
             importPic: function() {
-                return true;
-            },
-            importXuebi: function() {
                 return true;
             },
             xuebiList: function() {
