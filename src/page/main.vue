@@ -18,7 +18,7 @@
                         <span slot="title">首页</span>
                     </el-menu-item>
 
-                    <cc-menu></cc-menu>
+                    <main-menu></main-menu>
                 </el-menu>
 
             </aside>
@@ -37,11 +37,11 @@
 <script>
 	import checkPermission from '@/util/checkPermission'
 	
-	import CcMenu from '@/menu/CcMenu'
+	import MainMenu from '@/menu/MainMenu'
 
     export default {
     	components: {
-			CcMenu
+			MainMenu
 		},
         data() {
             return {

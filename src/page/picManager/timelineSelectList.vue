@@ -26,8 +26,6 @@
 					<tr style="background-color: #ddd;">
 						<td style="padding: 7px;">序号</td>
 						<td style="padding: 7px;">缩略图</td>
-						<td style="padding: 7px;">标签</td>
-						<td style="padding: 7px;">评分</td>
 						<td style="padding: 7px;">拍摄日期</td>
 						<td style="padding: 7px;">操作</td>
 					</tr>
@@ -40,12 +38,12 @@
 								</div>
 							</div>
 						</td>
-						<td>{{ item.label }}</td>
+						<td>{{ item.shotDate }}</td>
 						<td>
-							<el-rate v-model="item.score / 2" disabled show-score text-color="#999999"></el-rate>
+							<a class="aBtn" href="javascript:;" @click.stop="showNativePic(item.pathSrc)">原图</a>
+							<a class="aBtn" href="javascript:;" @click.stop="showSimilarity(item.id)">相似照片</a>
+							<a class="aBtn" href="javascript:;" @click.stop="showSimilarity(item.id)">同一天拍摄的</a>
 						</td>
-						<td>{{ item.pic.shotDate }}</td>
-						<td><a href="javascript:;" @click.stop="showNativePic(item.pathSrc)">查看原图</a></td>
 					</tr>
 				</table>
 				<div class="Pagination">
@@ -55,6 +53,12 @@
 				</div>
 			</div>
 		</div>
+		<el-dialog title="相似照片" :visible.sync="visible" width="60%">
+			<!-- <el-image v-for="url in similarList" :key="url" :src="url" lazy></el-image> -->
+			<div v-for="url in similarList" :key="url">
+				<a :href="url">{{url}}</a><br />
+			</div>
+		</el-dialog>
 	</div>
 </template>
 <script>
@@ -63,7 +67,8 @@ import utils from '@/util/utils';
 
 import { baseUrl } from '@/config/env';
 
-const list = data => fetch('/timeline/list', data);
+const list = data => fetch('/timeline/importPic/list', data);
+const getSimilarImgList = data => fetch('/timeline/importPic/getSimilarImgList', data);
 const labelList = data => fetch('/timeline/label/list2', data);
 const time = require('time-formater');
 
@@ -72,10 +77,14 @@ export default {
 		return {
 			list: [],	
 			options: [],
+			similarList: [],
+			
 			form: {
 				labelId: '',
 			},
-
+			
+			visible: false,
+			
 			currentPage: 1,
 			pageSize: 5,
 			dataCount: 0
@@ -89,6 +98,21 @@ export default {
 	methods: {
 		showNativePic(src){
 			window.open(src);
+		},
+		async showSimilarity(id){
+			let retObj = await getSimilarImgList({
+				id: id,
+			});
+			
+			if(!retObj || retObj.status != 1){
+				this.$message.error('获取数失败')
+			}
+			this.similarList = []
+			retObj.data.forEach(item => {
+				this.similarList.push(baseUrl + '\\' + item.src)
+			})
+			
+			this.visible = true;
 		},
 		searchBtn() {
 			this.currentPage = 1;
@@ -115,14 +139,14 @@ export default {
 					let mh = 0;
 					
 					// 图片地址 后面加时间戳是为了避免缓存
-					var img_url = baseUrl + '/' + item.pic.src + '?' + Date.parse(new Date());
+					var img_url = baseUrl + '/' + item.src + '?' + Date.parse(new Date());
 					  
 					// 创建对象
 					var img = new Image();
 					  
 					// 改变图片的src
 					img.src = img_url;
-					  
+					
 					// 加载完成执行
 					img.onload = function(){
 						// 打印
@@ -139,11 +163,10 @@ export default {
 							let per = 700 / h;
 							mw = w * per;
 						}
-						
 						let vueP = {
-							src: baseUrl + '/' + item.pic.src,
-							msrc: baseUrl + '/' + item.pic.srcThumbnail,
-							title: item.pic.shotDate,
+							src: baseUrl + '/' + item.src,
+							msrc: baseUrl + '/' + item.srcThumbnail,
+							title: item.shotDate,
 							w: mw,
 							h: mh,
 						}
@@ -151,9 +174,8 @@ export default {
 						picList.push(vueP);
 					};
 					
-					
-					item.pathSrcThumbnail = baseUrl + '/' + item.pic.srcThumbnail;
-					item.pathSrc = baseUrl + '/' + item.pic.src;
+					item.pathSrcThumbnail = baseUrl + '/' + item.srcThumbnail;
+					item.pathSrc = baseUrl + '/' + item.src;
 					
 					item.picList = picList;
 					
@@ -190,5 +212,9 @@ export default {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	.aBtn {
+		margin-right: 10px;
 	}
 </style>

@@ -22,6 +22,7 @@
 				<i class="el-icon-document"></i>
 				<span slot="title">图片管理</span>
 			</template>
+			<el-menu-item index="timelineSelectList" v-show="timelineSelectList">相册筛选</el-menu-item>
 			<el-menu-item index="xuebiList" v-show="xuebiList">雪碧列表</el-menu-item>
 			<el-menu-item index="importPic" v-show="importPic">时间线导入基表</el-menu-item>
 			<el-menu-item index="TimelineLabelList" v-show="TimelineLabelList">标签管理</el-menu-item>
@@ -85,6 +86,9 @@
                 return true;
             },
             importPic: function() {
+                return true;
+            },
+            timelineSelectList: function() {
                 return true;
             },
             xuebiList: function() {

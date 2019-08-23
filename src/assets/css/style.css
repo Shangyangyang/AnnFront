@@ -836,6 +836,11 @@
 .pageTitle .pageLeftRight{
     padding: 1%;
 }
+
+.pageTitle .pageBtn{
+    text-align:left;
+    margin:1%;
+}
 .pageTitle .pageBtn+.pageLeftRight{
     padding: 0 1% 10px;
 }

@@ -7,6 +7,7 @@ const testCalendar = r => require.ensure([], () => r(require('@/page/sys/testCal
 const car = r => require.ensure([], () => r(require('@/page/cost/car')), 'car');
 const large = r => require.ensure([], () => r(require('@/page/cost/large')), 'large');
 const xuebi = r => require.ensure([], () => r(require('@/page/cost/xuebi')), 'xuebi');
+const timelineSelectList = r => require.ensure([], () => r(require('@/page/picManager/timelineSelectList')), 'timelineSelectList');
 const lijin = r => require.ensure([], () => r(require('@/page/cost/lijin')), 'lijin');
 
 const xuebiList = r => require.ensure([], () => r(require('@/page/picManager/xuebiList')), 'xuebiList');
@@ -80,6 +81,12 @@ export default [
 		path: '/importPic',
 		component: importPic,
 		meta: ['图片管理', '时间线导入基表'],
+	}, 
+	{
+		path: '/timelineSelectList',
+		name: '/timelineSelectList',
+		component: timelineSelectList,
+		meta: ['图片管理', '相册筛选'],
 	}, 
 	{
 		path: '/xuebiList',
