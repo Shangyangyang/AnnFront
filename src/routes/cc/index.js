@@ -16,6 +16,7 @@ const importPic = r => require.ensure([], () => r(require('@/page/picManager/imp
 const importXuebi = r => require.ensure([], () => r(require('@/page/picManager/importXuebi')), 'importXuebi');
 const TimelineLabelList = r => require.ensure([], () => r(require('@/page/picManager/TimelineLabelList')), 'TimelineLabelList');
 const TimelineLabelQuickList = r => require.ensure([], () => r(require('@/page/picManager/TimelineLabelQuickList')), 'TimelineLabelQuickList');
+const PicSimilar = r => require.ensure([], () => r(require('@/page/picManager/PicSimilar')), 'PicSimilar');
 
 const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
@@ -107,6 +108,12 @@ export default [
 		path: '/TimelineLabelQuickList',
 		component: TimelineLabelQuickList,
 		meta: ['图片管理', '标签管理', '快速选择管理'],
+	}, 
+	{
+		path: '/PicSimilar',
+		name: 'PicSimilar',
+		component: PicSimilar,
+		meta: ['图片管理', '相册筛选', '相似的照片'],
 	}, 
 	{
 		path: '/signin',

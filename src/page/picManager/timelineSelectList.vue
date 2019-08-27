@@ -41,7 +41,7 @@
 						<td>{{ item.shotDate }}</td>
 						<td>
 							<a class="aBtn" href="javascript:;" @click.stop="showNativePic(item.pathSrc)">原图</a>
-							<a class="aBtn" href="javascript:;" @click.stop="showSimilarity(item.id)">相似照片</a>
+							<a class="aBtn" href="javascript:;" @click.stop="showSimilarity(item)">相似照片</a>
 							<a class="aBtn" href="javascript:;" @click.stop="showSimilarity(item.id)">同一天拍摄的</a>
 						</td>
 					</tr>
@@ -99,7 +99,19 @@ export default {
 		showNativePic(src){
 			window.open(src);
 		},
-		async showSimilarity(id){
+		async showSimilarity(item){
+			
+			// 跳转到similar页面
+			this.$router.push({
+				name: 'PicSimilar',
+				params: {
+					item: item,
+				}
+			})
+			
+			
+			/* 
+			
 			let retObj = await getSimilarImgList({
 				id: id,
 			});
@@ -112,7 +124,9 @@ export default {
 				this.similarList.push(baseUrl + '\\' + item.src)
 			})
 			
-			this.visible = true;
+			this.visible = true; 
+			
+			*/
 		},
 		searchBtn() {
 			this.currentPage = 1;

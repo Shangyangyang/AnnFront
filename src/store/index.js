@@ -4,69 +4,77 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
+	id: '',
+	userName: '',
+	name: '',
+}
 
-	userInfo: {
-		userCode:'',
-		userName: '',
+const mutations = {
 
-		areaCode: '',
-		areaName: '',
-
-		officeCode: '',
-		officeName: '',
-
-		resourceList: [],
+	saveUserId(state, id) {
+		state.id = id;
+		localStorage.setItem('id', state.id);
 	},
-	
-	menuList:[	"dictList","areaList","officeList","userList","roleList","menuList",
-				"adminSet","appList"],
-
-	currentUser: ''
-}
-
-const mutations = {	
-	saveUserInfo(state, userInfo){
-		state.userInfo = userInfo;
-		localStorage.setItem('user_info',state.userInfo);
-		
-		state.currentUser = userInfo.userCode;
-		localStorage.setItem('user_code',state.currentUser);
-	}	
-}
-
-const actions = {	
-	saveUserData({commit}, userInfo){
-		commit('saveUserInfo',userInfo);		
-	}	
-}
-
-const getters = {
-	getUserInfo: state =>{
-		if(state.userInfo === undefined || state.userInfo === null){
-			state.userInfo = localStorage.getItem('user_info');
-		}
-		return state.userInfo;			
+	saveUserName(state, userName) {
+		state.userName = userName;
+		localStorage.setItem('user_name', state.userName);
 	},
-
-	getResourceList: state => {
-		/*
-		if(state.userInfo === undefined || state.userInfo === null){
-			state.userInfo = localStorage.getItem('user_info');
-		}		
-		if(state.userInfo.resourceList === undefined || state.userInfo.resourceList == null){
-			return [];
-		}		
-		return state.userInfo.resourceList;
-		*/
-		
-		if(state.currentUser === undefined || state.currentUser === ''){
-			state.currentUser = localStorage.getItem('user_code');
-		}
-
-		return state.menuList;
+	saveName(state, name) {
+		state.name = name;
+		localStorage.setItem('name', state.name);
+	},
+	clearAllData(state) {
+		state.id = '';
+		state.userName = '';
+		state.name = '';
+		localStorage.clear();
 	}
 }
 
-const store = new Vuex.Store({state,getters,actions,mutations})
+const actions = {
+	setUserId({
+		commit
+	}, id) {
+		commit('saveUserId', id);
+	},
+	setUserName({
+		commit
+	}, userName) {
+		commit('saveUserName', userName);
+	},
+	setName({
+		commit
+	}, name) {
+		commit('saveName', name);
+	},
+}
+
+const getters = {
+	getUserId: state => {
+		if (state.id === undefined || state.id === null || state.id === '') {
+			state.id = localStorage.getItem('id');
+		}
+		return state.id;
+	},
+	getUserName: state => {
+		if (state.userName === undefined || state.userName === null || state.userName === '') {
+			state.userName = localStorage.getItem('user_name');
+		}
+		return state.userName;
+	},
+	getName: state => {
+		if (state.name === undefined || state.name === null || state.name === '') {
+			state.name = localStorage.getItem('name');
+		}
+		return state.name;
+	},
+}
+
+const store = new Vuex.Store({
+	state,
+	getters,
+	actions,
+	mutations
+})
 
 export default store

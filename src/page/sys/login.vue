@@ -87,7 +87,8 @@
 						
 						if(utils.checkResult(retObj, this)){
 							this.$message.success('登录成功');
-							window.location.href = "/";
+							
+							this.storeDataAndGo(retObj)
 						}
 						
 					} else {
@@ -95,6 +96,13 @@
 						return false;
 					}
 				}); 
+			},
+			storeDataAndGo(retObj) {
+			    this.$store.commit('saveUserId', retObj.data.id);
+			    this.$store.commit('saveUserName', retObj.data.userName);
+			    this.$store.commit('saveName', retObj.data.name);
+			
+			    this.$router.push('/');
 			},
 			reset(){
 				this.editCaptcha();

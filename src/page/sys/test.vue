@@ -44,7 +44,7 @@
 		},
 		created() {
 			//页面刚进入时开启长连接
-			this.getShotUUID2();
+			// this.getShotUUID2();
 		},
 		destroyed: function() {
 			//页面销毁时关闭长连接
