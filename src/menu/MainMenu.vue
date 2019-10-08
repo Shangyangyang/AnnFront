@@ -33,6 +33,7 @@
 				<span slot="title">小工具</span>
 			</template>
 			<el-menu-item index="signin" v-show="signin">签到表</el-menu-item>
+			<el-menu-item index="testVue" v-show="testVue">测试Vue</el-menu-item>
 		</el-submenu>
 		<el-submenu index="7" v-show="ControlMenu">
 			<template slot="title">
@@ -98,6 +99,9 @@
                 return true;
             },
             signin: function() {
+                return true;
+            },
+            testVue: function() {
                 return true;
             },
 			ControlMenu: function() {

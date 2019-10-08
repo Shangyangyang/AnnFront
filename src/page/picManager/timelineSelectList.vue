@@ -20,6 +20,7 @@
 				<el-button type="primary" icon="el-icon-search" @click="searchBtn">查询</el-button>
 				<el-button icon="el-icon-refresh" @click="resetForm('form')">重置</el-button>
 				<el-button plain type="primary" @click="startShaixuan">开始筛选</el-button>
+				<el-button plain type="primary" @click="openSimilar">相似图片列表</el-button>
 			</div>
 			<div class="pageLeftRight tabx">
 				<table class="annTable">
@@ -209,6 +210,9 @@ export default {
 		},
 		startShaixuan(){
 			this.$router.push('importXuebi');
+		},
+		openSimilar(){
+			this.$router.push('PicSimilar');
 		},
 	}
 };

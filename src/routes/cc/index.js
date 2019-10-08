@@ -19,6 +19,7 @@ const TimelineLabelQuickList = r => require.ensure([], () => r(require('@/page/p
 const PicSimilar = r => require.ensure([], () => r(require('@/page/picManager/PicSimilar')), 'PicSimilar');
 
 const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
+const testVue = r => require.ensure([], () => r(require('@/page/sys/testVue')), 'testVue');
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
 
 
@@ -119,7 +120,14 @@ export default [
 		path: '/signin',
 		component: signin,
 		meta: ['小工具', '签到表'],
-	},{
+	},
+	{
+		path: '/testVue',
+		name: 'testVue',
+		component: testVue,
+		meta: ['小工具', '测试Vue'],
+	},
+	{
 		path: '/login',
 		component: login,
 		meta: ['系统管理', '登录'],

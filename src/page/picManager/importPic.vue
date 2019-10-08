@@ -1,25 +1,21 @@
 <template>
-	<el-tabs v-model="activeName2" type="card" closable @tab-remove="removeTab">
-		<!-- 菜单标签页 -->
-		<el-tab-pane label="图片基表管理" name="first">
-			<div style="text-align: center;">
-				<div style="padding-left: 20px;">
-					<a @click="addPicFront" href="javascript:void(0);">新增照片</a>&emsp;&emsp;
-					<a @click="repeatPic" href="javascript:void(0);">排重</a>&emsp;&emsp;
-					<a @click="shotTime" href="javascript:void(0);">修改拍摄时间</a>&emsp;&emsp;
-					<!-- <a @click="genThumbnail" href="javascript:void(0);">生成缩略图</a>&emsp;&emsp; -->
-				</div>
-				<br/><span>--------------------------------------------------------------------------------</span><br/>
-				<div>
-					图片库最近状态<br/><br/>
-					<label>总数：</label>{{lastPic.lastTotal}}<br/>
-					<label>最近拍摄日期：</label>{{lastPic.lastShotDate}}<br/>
-					<label>最近导入时间：</label>{{lastPic.lastImportDate}}<br/>
-				</div>
+	<div>
+		<div style="text-align: center;">
+			<div style="padding-left: 20px;">
+				<a @click="addPicFront" href="javascript:void(0);">新增照片</a>&emsp;&emsp;
+				<a @click="repeatPic" href="javascript:void(0);">排重</a>&emsp;&emsp;
+				<a @click="shotTime" href="javascript:void(0);">修改拍摄时间</a>&emsp;&emsp;
+				<!-- <a @click="genThumbnail" href="javascript:void(0);">生成缩略图</a>&emsp;&emsp; -->
 			</div>
-		</el-tab-pane>
-		<!-- 新增图片库功能页 -->
-		<el-tab-pane name="addPic" v-if="addPicFlag">
+			<br/><span>--------------------------------------------------------------------------------</span><br/>
+			<div>
+				图片库最近状态<br/><br/>
+				<label>总数：</label>{{lastPic.lastTotal}}<br/>
+				<label>最近拍摄日期：</label>{{lastPic.lastShotDate}}<br/>
+				<label>最近导入时间：</label>{{lastPic.lastImportDate}}<br/>
+			</div>
+		</div>
+		<div>
 			<span slot="label"><i class="el-icon-picture"></i> 新增照片</span>
 			<div style="text-align: center;">
 				<a @click="addPicBegin" href="javascript:void(0);" v-show="!progressFlag" style="padding-left: 20px;">新增照片</a>
@@ -29,10 +25,9 @@
 				<div style="width: 50%;" v-show="progressFlag">
 					<el-progress :text-inside="true" :stroke-width="18" :percentage="percentage"></el-progress>
 				</div>
-			</div>			
-		</el-tab-pane>
-		<!-- 排重功能页 -->
-		<el-tab-pane name="repeat" v-if="repeatFlag">
+			</div>
+		</div>
+		<div>
 			<span slot="label"><i class="el-icon-refresh"></i> 排重</span>
 			<div style="text-align: center;">
 				<a @click="repeatMd5Begin" href="javascript:void(0);" style="padding-left: 20px;">Md5排重</a>
@@ -50,8 +45,8 @@
 						:deleteFlag.sync="deleteFlag"></img-show>
 				</div>
 			</div>
-		</el-tab-pane>
-		<el-tab-pane name="shotTime" v-if="shotTimeFlag">
+		</div>
+		<div>
 			<span slot="label"><i class="el-icon-time"></i> 修改拍摄时间</span>
 			<div style="text-align: center;">
 				<a @click="shotTimeStart" href="javascript:void(0);" style="padding-left: 20px;" v-if="shotTimeStartFlag">&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;</a>
@@ -74,9 +69,9 @@
 					<br />
 					<a href="javascript:void(0);" @click="saveShotDate">&emsp;[&nbsp;保&nbsp;&nbsp;存&nbsp;]&emsp;</a>
 				</div>
-			</div>			
-		</el-tab-pane>
-	</el-tabs>
+			</div>
+		</div>
+	</div>
 </template>
 <script>
 	
@@ -139,7 +134,7 @@
 			};
 		},
 		created:function(){
-			this.getLastStatus();
+			//this.getLastStatus();
 		},
 		methods: {
 			async genThumbnail(){
