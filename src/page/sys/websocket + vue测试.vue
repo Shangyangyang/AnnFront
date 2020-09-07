@@ -14,7 +14,7 @@ export default {
     created() {
         //页面刚进入时开启长连接
         console.log('created');
-        this.initWebSocket();
+        // this.initWebSocket();
     },
     destroyed: function() {
         //页面销毁时关闭长连接

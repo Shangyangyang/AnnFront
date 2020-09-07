@@ -7,6 +7,7 @@
 			<el-col :span="4">
 				<el-button type="primary" icon="el-icon-search" @click="test">查询</el-button>
 				<el-button type="primary" icon="el-icon-search" @click="test2">获取当前用户</el-button>
+				<el-button type="primary" icon="el-icon-search" @click="test3">测试另一种</el-button>
 			</el-col>
 		</el-row>
 		<el-row>
@@ -43,8 +44,9 @@
 			};
 		},
 		created() {
+			this.$options.sockets.onmessage = (data) => console.log(data)
 			//页面刚进入时开启长连接
-			// this.getShotUUID2();
+			this.getShotUUID2();
 		},
 		destroyed: function() {
 			//页面销毁时关闭长连接
@@ -83,13 +85,16 @@
 				
 				retObj.data.forEach(item => this.userList.push(item));
 			},
+			async test3() {
+				this.$socket.send('some data')
+			},
 			test() {
 				this.websocketsend(this.form.name);
 			},
 			initWebSocket() {
 
 				//初始化weosocket
-				const wsuri = 'ws://localhost:8080/websocket/' + this.uuid; //ws地址
+				const wsuri = 'ws://localhost:8001/websocket/' + this.uuid; //ws地址
 				this.websock = new WebSocket(wsuri);
 
 				this.websock.onopen = this.websocketonopen;

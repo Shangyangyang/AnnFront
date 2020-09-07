@@ -50,7 +50,7 @@
 			init() {
 				if (this.pData && this.pData.src) {
 					this.imgList.push(baseUrl + '/' + this.pData.src)
-					this.initWebSocket();
+					// this.initWebSocket();
 				}
 			},
 			initWebSocket() {

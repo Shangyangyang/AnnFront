@@ -34,6 +34,7 @@
 			</template>
 			<el-menu-item index="signin" v-show="signin">签到表</el-menu-item>
 			<el-menu-item index="testVue" v-show="testVue">测试Vue</el-menu-item>
+			<el-menu-item index="testEcharts" v-show="testVue">测试热力图</el-menu-item>
 		</el-submenu>
 		<el-submenu index="7" v-show="ControlMenu">
 			<template slot="title">
@@ -102,6 +103,9 @@
                 return true;
             },
             testVue: function() {
+                return true;
+            },
+            testEcharts: function() {
                 return true;
             },
 			ControlMenu: function() {

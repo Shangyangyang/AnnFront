@@ -7,17 +7,21 @@
  */
 
 let baseUrl = '';
+let testUrl = '';
 let loginUrl = 'http://localhost:8888/#/login';
 
 
 if (process.env.NODE_ENV == 'development') {
 
-	baseUrl = 'http://localhost:8088';
+	baseUrl = 'http://localhost:8001';
+	testUrl = 'http://localhost:8300';
 }else{
-	baseUrl = 'http://localhost:8088';
+	baseUrl = 'http://localhost:8001';
+	testUrl = 'http://localhost:8300';
 }
 
 export {
 	baseUrl,
+	testUrl,
 	loginUrl,
 }

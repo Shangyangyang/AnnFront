@@ -20,6 +20,7 @@ const PicSimilar = r => require.ensure([], () => r(require('@/page/picManager/Pi
 
 const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
 const testVue = r => require.ensure([], () => r(require('@/page/sys/testVue')), 'testVue');
+const testEcharts = r => require.ensure([], () => r(require('@/page/sys/testEcharts')), 'testEcharts');
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
 
 
@@ -126,6 +127,12 @@ export default [
 		name: 'testVue',
 		component: testVue,
 		meta: ['小工具', '测试Vue'],
+	},
+	{
+		path: '/testEcharts',
+		name: 'testEcharts',
+		component: testEcharts,
+		meta: ['小工具', '测试Echarts'],
 	},
 	{
 		path: '/login',

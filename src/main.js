@@ -25,6 +25,10 @@ import './util/directives.js';
 import ImgShow from './comp/myZujian/imgShow'
 Vue.component('img-show', ImgShow);
 
+// 自定义进度条组件
+import myProgress from './comp/myProgress.vue'
+Vue.component('my-progress', myProgress);
+
 // 字典公共组件
 import DataDict from './comp/myZujian/DataDict'
 Vue.component('data-dict', DataDict);
@@ -40,6 +44,14 @@ Vue.component('back-top', BackTop);
 //  时光轴组件
 import timeline from './page/timeline/timeline'
 Vue.component('timeline', timeline);
+
+//  测试热力图
+import testEchartsTest from './page/sys/testEchartsTest'
+Vue.component('testEchartsTest', testEchartsTest);
+
+// websocket
+import websocket from './util/websocket/websocketStore.js'
+Vue.prototype.$websocket = websocket;
 
 // 图片懒加载
 import VueLazyLoad from 'vue-lazyload'
@@ -63,10 +75,16 @@ Vue.use(imageViewer);
 
 import VuePreview from 'vue-preview'
 
-// defalut install
+// // defalut install
 Vue.use(VuePreview)
 
+// vue + websocket
+import VueNativeSock from 'vue-native-websocket'
+Vue.use(VueNativeSock, 'ws://localhost:8001/websocket/1')
 
+// 音乐播放器
+import Aplayer from 'vue-aplayer'
+Vue.component('Aplayer', Aplayer);
 
 // 系统导航
 import BreadHead from './comp/myZujian/BreadHead'
