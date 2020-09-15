@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<bread-head></bread-head>
-		<div class="pageTitle">
+		<div class="pageTitle" style="width: 100vw;">
 			<div class="pageTitleSub">
 				<el-form :model="form" labelWidth="100px">
 					<el-row :gutter="5">

@@ -858,7 +858,7 @@
 
 .pageHelp .pageLeftRight{ background: white; padding:20px 40px !important; }
 
-.tabx{ width:97%; overflow-x: auto; }
+.tabx{ width:97%; /* overflow-x: auto; */ }
 .tabx table{ width:1610px; margin:0 auto;}
 
 

@@ -18,7 +18,7 @@
 		<br />
 		<div style="width: 50%;margin-left: 20%;">
 			<el-tabs v-model="activeName" @tab-click="handleClick" style="min-width: 1000px;">
-				<el-tab-pane label="新增照片" name="first">
+				<el-tab-pane label="新增照片" name="addPic">
 					<span slot="label">
 						<i class="el-icon-picture"></i>
 						新增照片
@@ -117,7 +117,7 @@ export default {
 			pic: {}, // 临时对象
 			lastPic: {},
 
-			activeName: 'first',
+			activeName: 'addPic',
 			percentage: 0,
 			imgId: '', // 临时图片ID
 			guessTime: '', // 猜时间存放属性

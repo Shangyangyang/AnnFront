@@ -1,7 +1,7 @@
 <template>
-	<div class="fillcontain">
+	<div>
 		<bread></bread>
-		<div class="table_container areaList">
+		<div class="areaList" style="width:100%; min-width:300px">
 			<el-container>
 				<el-main class="adminSet">
 					<el-row type="flex" class="header">
@@ -9,7 +9,7 @@
 						<el-col class="admin_title">大额支出管理</el-col>
 						<el-col style="flex: 1;border-bottom: 1px solid #ccc;"></el-col>
 					</el-row>
-					<div style="padding:20px 10px; width: 100%;border-bottom: 1px solid #e5e5e5;" class="dicTop">
+					<div style="padding:20px 10px; width: 100%;border-bottom: 1px solid #e5e5e5;">
 						<el-form>
 							<el-row :gutter="20">
 								<el-col :span="4">
@@ -37,25 +37,45 @@
 							</el-row>
 						</el-form>
 					</div>
-					<el-table :data="tableData" stripe border style="width: 98%" v-loading="loading">
-						<el-table-column prop="costDate" label="消费日期" width="150"></el-table-column>
-						<el-table-column prop="money" label="金额" width="150"></el-table-column>
-						<el-table-column prop="typeName" label="类型" width="150"></el-table-column>
-						<el-table-column prop="jinpozhiName" label="紧急程度" width="150"></el-table-column>
-						<el-table-column prop="reason" label="说明" width="250"></el-table-column>
-						<el-table-column label="操作" width="300">
-							<template slot-scope="scope">
-								<el-button size="small" @click="handleView(scope.row)" icon="el-icon-edit">查看</el-button>
-								<el-button size="small" @click="handleEdit(scope.row)" icon="el-icon-edit">编辑</el-button>
-								<el-button size="small" @click="handleDelete(scope.row)" icon="el-icon-edit">删除</el-button>
-							</template>
-						</el-table-column>
-					</el-table>
-					<div class="Pagination" style="text-align: right;">
-						<el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :total="dataCount" :page-sizes="[10, 20, 30, 40,50]" layout="total, sizes, prev, pager, next">
-						</el-pagination>
+					<div class="pageLeftRight tabx">
+						<table class="annTable">
+							<tr style="background-color: #ddd;">
+								<td style="padding: 7px;">序号</td>
+								<td style="padding: 7px;">消费日期</td>
+								<td style="padding: 7px;">金额</td>
+								<td style="padding: 7px;">类型</td>
+								<td style="padding: 7px;">紧急程度</td>
+								<td style="padding: 7px;">说明</td>
+								<td style="padding: 7px;">操作</td>
+							</tr>
+							<tr v-for="(item, index) in tableData" :key="index">
+								<td>{{ index + 1 }}</td>
+								<td>{{ item.costDate }}</td>
+								<td>{{ item.money }}</td>
+								<td>{{ item.typeName }}</td>
+								<td>{{ item.jinpozhiName }}</td>
+								<td>{{ item.reason }}</td>
+								<td>
+									<a class="aBtn" href="javascript:;" @click.stop="handleView(item)">查看</a>
+									<a class="aBtn" href="javascript:;" @click.stop="handleEdit(item)">编辑</a>
+									<a class="aBtn" href="javascript:;" @click.stop="handleDelete(item)">删除</a>
+								</td>
+							</tr>
+						</table>
+					
+						<div class="Pagination">
+							<el-pagination
+								background
+								@size-change="handleSizeChange"
+								@current-change="handleCurrentChange"
+								:current-page="currentPage"
+								:page-size="pageSize"
+								:total="dataCount"
+								:page-sizes="[5, 10, 20]"
+								layout="total, sizes, prev, pager, next, jumper"
+							></el-pagination>
+						</div>
 					</div>
-
 				</el-main>
 			</el-container>
 		</div>
