@@ -157,6 +157,8 @@ export default {
 					
 					item.picList = picList;
 					
+					console.log(picList);
+					
 					this.list.push(item);
 				});
 				

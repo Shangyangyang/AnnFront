@@ -90,6 +90,10 @@ Vue.component('Aplayer', Aplayer);
 import BreadHead from './comp/myZujian/BreadHead'
 Vue.component('bread-head', BreadHead);
 
+// 根据文件路径获取文件列表
+import searchFiles from './comp/searchFiles'
+Vue.component('search-files', searchFiles);
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);

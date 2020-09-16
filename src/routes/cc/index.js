@@ -23,8 +23,15 @@ const testVue = r => require.ensure([], () => r(require('@/page/sys/testVue')), 
 const testEcharts = r => require.ensure([], () => r(require('@/page/sys/testEcharts')), 'testEcharts');
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
 
+const musicSortList = r => require.ensure([], () => r(require('@/page/fileSort/musicSortList')), 'musicSortList');
 
 export default [
+	{
+		path: '/musicSortList',
+		name: 'musicSortList',
+		component: musicSortList,
+		meta: ['文件分类管理', '音乐'],
+	}, 
 	{
 		path: '/dictList',
 		component: dictList,
