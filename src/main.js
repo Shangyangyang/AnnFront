@@ -94,6 +94,10 @@ Vue.component('bread-head', BreadHead);
 import searchFiles from './comp/searchFiles'
 Vue.component('search-files', searchFiles);
 
+// 加载动画
+import loading from './comp/loading.vue'
+Vue.component('loading', loading);
+
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
