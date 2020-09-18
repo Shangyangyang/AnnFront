@@ -5,21 +5,22 @@
 <script>
 import fetch from '@/util/fetch';
 
-const listDictData = data => fetch('/cc/dict/list', data);
-
 export default {
 	props: ['showFlag', 'msgType'],
 	data() {
 		return {
 			num: 0,
-			userName: this.$store.getters.getUserName
+			userName: this.$store.getters.getUserName,
+			userId: this.$store.getters.getUserId,
+			
 		};
 	},
 	created() {
-		this.$websocket.dispatch('WEBSOCKET_INIT', 'ws://localhost:8001/websocket/' + this.userName);
+		this.$websocket.dispatch('WEBSOCKET_INIT', 'ws://localhost:8001/websocket/' + this.userId);
 	},
 	computed: {
 		alertCont() {
+			console.log('this.$websocket.getters', this.$websocket.getters);
 			return this.$websocket.getters.onEvent(this.msgType);
 		},
 	},

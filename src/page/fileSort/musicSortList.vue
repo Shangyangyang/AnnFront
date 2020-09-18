@@ -1,9 +1,7 @@
 <template>
 	<div>
 		<el-row>
-			<el-col :span="23" style="margin: 10px;">
-				<search-files ></search-files>
-			</el-col>
+			<el-col :span="23" style="margin: 10px;"><search-files :fileList="fileList" @onChange="test"></search-files></el-col>
 		</el-row>
 	</div>
 </template>
@@ -12,14 +10,17 @@
 export default {
 	data() {
 		return {
+			fileList: [],
+
 			input3: '',
-			select: '1'
+			select: '1',
+
+			
 		};
 	},
 	methods: {
-		searchFile() {
-			console.log(this.input3);
-			console.log(this.select);
+		test() {
+			console.log('musicSortList', this.fileList);
 		}
 	}
 };

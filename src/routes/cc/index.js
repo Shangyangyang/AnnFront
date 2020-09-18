@@ -24,8 +24,15 @@ const testEcharts = r => require.ensure([], () => r(require('@/page/sys/testEcha
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
 
 const musicSortList = r => require.ensure([], () => r(require('@/page/fileSort/musicSortList')), 'musicSortList');
+const testProgress_bak = r => require.ensure([], () => r(require('@/page/sys/testProgress_bak')), 'testProgress_bak');
 
 export default [
+	{
+		path: '/testProgress_bak',
+		name: 'testProgress_bak',
+		component: testProgress_bak,
+		meta: ['文件分类管理', '测试进度条'],
+	}, 
 	{
 		path: '/musicSortList',
 		name: 'musicSortList',

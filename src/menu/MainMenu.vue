@@ -33,6 +33,7 @@
 				<span slot="title">文件分类管理</span>
 			</template>
 			<el-menu-item index="musicSortList" v-show="musicSortList">音乐列表</el-menu-item>
+			<el-menu-item index="testProgress_bak" v-show="testProgress_bak">测试进度条</el-menu-item>
 		</el-submenu>
 		<el-submenu index="70" v-show="ControlMenu">
 			<template slot="title">
@@ -65,6 +66,9 @@
 	export default {
 		computed: {
 			musicSortList: function() {
+				return true;
+			},
+			testProgress_bak: function() {
 				return true;
 			},
 			dictList: function() {

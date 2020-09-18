@@ -24,7 +24,7 @@ export default new Vuex.Store({
 			}
 			state.websock.onmessage = function(callBack) {
 				console.log("ws接收！");
-
+				console.log(callBack.data);
 				if (callBack.data.length <= 0 ||
 					callBack.data == '连接成功！' ||
 					callBack.data == '测试bigData'
