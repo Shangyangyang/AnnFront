@@ -16,11 +16,10 @@ export default {
 		};
 	},
 	created() {
-		this.$websocket.dispatch('WEBSOCKET_INIT', 'ws://localhost:8001/websocket/' + this.userId);
+		this.$websocket.dispatch('WEBSOCKET_INIT', 'ws://localhost:8001/websocket/' + this.userName);
 	},
 	computed: {
 		alertCont() {
-			console.log('this.$websocket.getters', this.$websocket.getters);
 			return this.$websocket.getters.onEvent(this.msgType);
 		},
 	},

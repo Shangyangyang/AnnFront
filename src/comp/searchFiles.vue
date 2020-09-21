@@ -35,22 +35,25 @@ export default {
 	},
 	computed: {
 		fileSortSyncMsg() {
-			console.log('this.$websocket.getters', this.$websocket.getters);
-			console.log('this.$websocket.getters', this.$websocket.getters.onEvent('fileSortSyncMsg'));
 			return this.$websocket.getters.onEvent('fileSortSyncMsg');
 		},
 	},
 	watch: {
 		fileSortSyncMsg: function(n, o) {
 			if (n !== o && n) {
-				this.$message.success(n)
+				this.$message({
+					type: 'success',
+					message: `${n.data}`,
+					duration: 0,
+					showClose: true
+				});
 			}
 		},
 	},
 	methods: {
 		updateShowFlag2() {
 			this.progressShowFlag = false;
-			this.$message.success('执行完毕');
+			// this.$message.success('执行完毕');
 		},
 
 		openProgress() {
