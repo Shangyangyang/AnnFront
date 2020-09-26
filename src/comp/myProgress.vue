@@ -26,7 +26,10 @@ export default {
 	watch: {
 		alertCont: function(a, b) {
 			if (a !== b && a) {
+				
 				this.num = a.data;
+				
+				if(this.num > 0 && this.num < 100) this.showFlag = true;
 				if (this.num >= 100) {
 					this.$emit('updateShowFlag')
 				}

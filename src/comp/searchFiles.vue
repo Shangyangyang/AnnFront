@@ -1,7 +1,7 @@
 <template>
 	<span>
 		<my-progress :showFlag="progressShowFlag" :msgType="'jindutiao2'" @updateShowFlag="updateShowFlag2"></my-progress>
-		<el-input placeholder="请输入内容" v-model="filePath" class="input-with-select">
+		<el-input placeholder="请输入内容" v-model="filePath" class="input-with-select" @focus="selectText($event)">
 			<el-select v-model="fileType" slot="prepend" placeholder="请选择">
 				<el-option label="音乐" value="1"></el-option>
 				<el-option label="PDF电子书" value="2"></el-option>
@@ -23,7 +23,7 @@ export default {
 	data() {
 		return {
 			fileList: [],
-			suffixList: [{ key: '1', value: 'mp3,wav,w4a' }, { key: '2', value: 'pdf' }],
+			suffixList: [{ key: '1', value: 'mp3,wav,w4a,flac,ape' }, { key: '2', value: 'pdf' }],
 
 			filePath: 'F:\\123',
 			fileType: '1',
@@ -59,7 +59,9 @@ export default {
 		openProgress() {
 			this.progressShowFlag = true;
 		},
-
+		selectText(e){
+			e.currentTarget.select()
+		},
 		async getFileList() {
 			if (!this.filePath || this.filePath.trim() == '') {
 				this.$message.error('不能为空');
