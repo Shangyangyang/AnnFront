@@ -1,15 +1,5 @@
 <template>
 	<div>
-		<el-submenu index="30" v-show="ControlMenu">
-			<template slot="title">
-				<i class="el-icon-document"></i>
-				<span slot="title">记账本</span>
-			</template>
-			<el-menu-item index="car" v-show="car">汽车花费</el-menu-item>
-			<el-menu-item index="large" v-show="large">大额支出</el-menu-item>
-			<el-menu-item index="xuebi" v-show="xuebi">雪碧</el-menu-item>
-			<el-menu-item index="lijin" v-show="lijin">礼金管理</el-menu-item>
-		</el-submenu>
 		<el-submenu index="40" v-show="ControlMenu">
 			<template slot="title">
 				<i class="el-icon-document"></i>

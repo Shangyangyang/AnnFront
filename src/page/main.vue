@@ -18,6 +18,7 @@
                         <span slot="title">首页</span>
                     </el-menu-item>
 
+                    <cost-menu></cost-menu>
                     <main-menu></main-menu>
                 </el-menu>
 
@@ -37,11 +38,14 @@
 <script>
 	import checkPermission from '@/util/checkPermission'
 	
+	import CostMenu from '@/menu/CostMenu'
 	import MainMenu from '@/menu/MainMenu'
 
     export default {
     	components: {
-			MainMenu
+			MainMenu,
+			CostMenu,
+			
 		},
         data() {
             return {
