@@ -19,6 +19,7 @@
 	export default {
 		computed: {
 			carShow(){
+				console.log("checkPermission('car'):", checkPermission('car'));
 				return checkPermission('car');
 			},
 			largeShow(){
@@ -31,13 +32,13 @@
 				return checkPermission('lijin');
 			},
 			totalShow: function() {
-				return 
-				this.carShow
-				|| this.largeShow
-				|| this.xuebiShow
-				|| this.lijinShow
-				|| true
-				;
+				return true
+				// this.carShow
+				// || this.largeShow
+				// || this.xuebiShow
+				// || this.lijinShow
+				// || true
+				// ;
 			}
 		}		
 	}

@@ -5,6 +5,7 @@ function checkPermission(resourceName) {
 	console.log('resourceList:');
 	console.log(resourceList);
 	
+	// 临时放行
 	if(!resourceList) return true;
 	
 	return resourceList.find((item) => {

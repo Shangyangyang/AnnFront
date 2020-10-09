@@ -36,12 +36,16 @@ export default new Vuex.Store({
 					console.log("收到服务器心跳包！")
 					return;
 				}
-
-				let obj = JSON.parse(callBack.data)
-
+				let obj = null
+				try{
+					obj = JSON.parse(callBack.data)
+				} catch (e){
+					console.log('e:', e);
+				}
+				
 				let index = getArrayIndex(state.eventlist, obj);
 
-				if (index > -1) {
+				if (index > -1 && obj) {
 					state.eventlist.splice(index, 1, {
 						name: obj.name,
 						data: obj.data
