@@ -5,7 +5,7 @@
 				<i class="el-icon-document"></i>
 				<span slot="title">文件分类管理</span>
 			</template>
-			<el-menu-item index="musicSortList" v-show="musicSortListShow">文件导入</el-menu-item>
+			<el-menu-item index="FileSortList" v-show="FileSortListShow">文件导入</el-menu-item>
 		</el-submenu>
 	</div>
 </template>
@@ -15,11 +15,11 @@
 	
 	export default {
 		computed: {
-			musicSortListShow(){
-				return checkPermission('musicSortList');
+			FileSortListShow(){
+				return checkPermission('FileSortList');
 			},
 			totalShow: function() {
-				return this.musicSortListShow;
+				return this.FileSortListShow;
 			}
 		}		
 	}

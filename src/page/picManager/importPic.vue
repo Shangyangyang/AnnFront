@@ -1,6 +1,7 @@
 <template>
-	<div style="text-align: center;">
-		<div>
+	<div>
+		<bread-head></bread-head>
+		<div style="text-align: center;">
 			<h1>图片库最近状态</h1>
 			<br />
 			<br />

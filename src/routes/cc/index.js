@@ -15,7 +15,7 @@ const PicSimilar = r => require.ensure([], () => r(require('@/page/picManager/Pi
 
 const signin = r => require.ensure([], () => r(require('@/page/test/signin')), 'signin');
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
-const musicSortList = r => require.ensure([], () => r(require('@/page/fileSort/musicSortList')), 'musicSortList');
+const FileSortList = r => require.ensure([], () => r(require('@/page/fileSort/FileSortList')), 'FileSortList');
 
 const dictList = r => require.ensure([], () => r(require('@/page/cc/dictList')), 'dictList');
 const userList = r => require.ensure([], () => r(require('@/page/cc/userList')), 'userList');
@@ -38,9 +38,9 @@ export default [
 		meta: ['文件分类管理', '测试进度条'],
 	}, 
 	{
-		path: '/musicSortList',
-		name: 'musicSortList',
-		component: musicSortList,
+		path: '/FileSortList',
+		name: 'FileSortList',
+		component: FileSortList,
 		meta: ['文件分类管理', '文件导入'],
 	}, 
 	{
@@ -89,24 +89,24 @@ export default [
 		meta: ['记账本', '大额支出'],
 	}, 
 	{
-		path: '/xuebiCost',
-		component: xuebiCost,
-		meta: ['雪碧', '记账本'],
-	}, 
-	{
 		path: '/lijin',
 		component: lijin,
 		meta: ['记账本', '礼金管理'],
 	}, 
 	{
+		path: '/xuebiCost',
+		component: xuebiCost,
+		meta: ['雪碧', '记账本'],
+	}, 
+	{
 		path: '/xuebiTimeline',
 		component: xuebiTimeline,
-		meta: ['雪碧时光轴', '雪碧时光轴'],
+		meta: ['雪碧', '时光轴'],
 	}, 
 	{
 		path: '/importPic',
 		component: importPic,
-		meta: ['图片管理', '时间线导入基表'],
+		meta: ['图片管理', '导入图片'],
 	}, 
 	{
 		path: '/timelineSelectList',

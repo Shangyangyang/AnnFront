@@ -1,14 +1,6 @@
 <template>
 	<div>
-		<div style="margin: 20px 0px 10px; padding: 10px 17px 10px; background-color: #eee;">
-			<el-breadcrumb separator=">>">
-				<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-				<el-breadcrumb-item :to="{ path: '/xuebiList' }">
-					图片管理
-				</el-breadcrumb-item>
-				<el-breadcrumb-item>标签管理</el-breadcrumb-item>
-			</el-breadcrumb>
-		</div>
+		<bread-head></bread-head>
 		<div>
 			<div style="margin-top: 15px; margin-left: 17px; margin-bottom: 20px;">
 				<el-button @click="addLabel" plain type="primary">新增</el-button>
