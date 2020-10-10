@@ -19,7 +19,11 @@
                     </el-menu-item>
 
                     <cost-menu></cost-menu>
-                    <main-menu></main-menu>
+                    <pic-menu></pic-menu>
+                    <file-sort-menu></file-sort-menu>
+                    <xuebi-menu></xuebi-menu>
+                    <system-menu></system-menu>
+                    <test-menu></test-menu>
                 </el-menu>
 
             </aside>
@@ -38,14 +42,21 @@
 <script>
 	import checkPermission from '@/util/checkPermission'
 	
-	import CostMenu from '@/menu/CostMenu'
-	import MainMenu from '@/menu/MainMenu'
+	import CostMenu from '@/menu/subMenu/CostMenu'
+	import XuebiMenu from '@/menu/subMenu/XuebiMenu'
+	import SystemMenu from '@/menu/subMenu/SystemMenu'
+	import TestMenu from '@/menu/subMenu/TestMenu'
+	import PicMenu from '@/menu/subMenu/PicMenu'
+	import FileSortMenu from '@/menu/subMenu/FileSortMenu'
 
     export default {
     	components: {
-			MainMenu,
 			CostMenu,
-			
+			XuebiMenu,
+			SystemMenu,
+			TestMenu,
+			PicMenu,
+			FileSortMenu,
 		},
         data() {
             return {

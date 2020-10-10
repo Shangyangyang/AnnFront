@@ -46,7 +46,7 @@ import timeline from './page/timeline/timeline'
 Vue.component('timeline', timeline);
 
 //  测试热力图
-import testEchartsTest from './page/sys/testEchartsTest'
+import testEchartsTest from './page/test/testEchartsTest'
 Vue.component('testEchartsTest', testEchartsTest);
 
 // websocket

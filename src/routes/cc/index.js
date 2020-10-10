@@ -1,12 +1,7 @@
-const dictList = r => require.ensure([], () => r(require('@/page/cc/dictList')), 'dictList');
-const userList = r => require.ensure([], () => r(require('@/page/cc/userList')), 'userList');
-const roleList = r => require.ensure([], () => r(require('@/page/cc/roleList')), 'roleList');
-const menuList = r => require.ensure([], () => r(require('@/page/cc/menuList')), 'menuList');
-const test = r => require.ensure([], () => r(require('@/page/sys/test')), 'test');
-const testCalendar = r => require.ensure([], () => r(require('@/page/sys/testCalendar')), 'testCalendar');
+
 const car = r => require.ensure([], () => r(require('@/page/cost/car')), 'car');
 const large = r => require.ensure([], () => r(require('@/page/cost/large')), 'large');
-const xuebi = r => require.ensure([], () => r(require('@/page/cost/xuebi')), 'xuebi');
+const xuebiCost = r => require.ensure([], () => r(require('@/page/cost/xuebiCost')), 'xuebiCost');
 const timelineSelectList = r => require.ensure([], () => r(require('@/page/picManager/timelineSelectList')), 'timelineSelectList');
 const lijin = r => require.ensure([], () => r(require('@/page/cost/lijin')), 'lijin');
 
@@ -18,13 +13,22 @@ const TimelineLabelList = r => require.ensure([], () => r(require('@/page/picMan
 const TimelineLabelQuickList = r => require.ensure([], () => r(require('@/page/picManager/TimelineLabelQuickList')), 'TimelineLabelQuickList');
 const PicSimilar = r => require.ensure([], () => r(require('@/page/picManager/PicSimilar')), 'PicSimilar');
 
-const signin = r => require.ensure([], () => r(require('@/page/tool/signin')), 'signin');
-const testVue = r => require.ensure([], () => r(require('@/page/sys/testVue')), 'testVue');
-const testEcharts = r => require.ensure([], () => r(require('@/page/sys/testEcharts')), 'testEcharts');
+const signin = r => require.ensure([], () => r(require('@/page/test/signin')), 'signin');
 const login = r => require.ensure([], () => r(require('@/page/sys/login')), 'login');
-
 const musicSortList = r => require.ensure([], () => r(require('@/page/fileSort/musicSortList')), 'musicSortList');
-const testProgress_bak = r => require.ensure([], () => r(require('@/page/sys/testProgress_bak')), 'testProgress_bak');
+
+const dictList = r => require.ensure([], () => r(require('@/page/cc/dictList')), 'dictList');
+const userList = r => require.ensure([], () => r(require('@/page/cc/userList')), 'userList');
+const roleList = r => require.ensure([], () => r(require('@/page/cc/roleList')), 'roleList');
+const menuList = r => require.ensure([], () => r(require('@/page/cc/menuList')), 'menuList');
+
+const test = r => require.ensure([], () => r(require('@/page/test/test')), 'test');
+const testWebsocket = r => require.ensure([], () => r(require('@/page/test/testWebsocket')), 'testWebsocket');
+const testCalendar = r => require.ensure([], () => r(require('@/page/test/testCalendar')), 'testCalendar');
+const testVue = r => require.ensure([], () => r(require('@/page/test/testVue')), 'testVue');
+const testEcharts = r => require.ensure([], () => r(require('@/page/test/testEcharts')), 'testEcharts');
+const testProgress_bak = r => require.ensure([], () => r(require('@/page/test/testProgress_bak')), 'testProgress_bak');
+
 
 export default [
 	{
@@ -37,7 +41,7 @@ export default [
 		path: '/musicSortList',
 		name: 'musicSortList',
 		component: musicSortList,
-		meta: ['文件分类管理', '音乐'],
+		meta: ['文件分类管理', '文件导入'],
 	}, 
 	{
 		path: '/dictList',
@@ -62,7 +66,12 @@ export default [
 	{
 		path: '/test',
 		component: test,
-		meta: ['系统管理', '测试'],
+		meta: ['测试专区', '测试'],
+	}, 
+	{
+		path: '/testWebsocket',
+		component: testWebsocket,
+		meta: ['测试专区', '测试websocket'],
 	}, 
 	{
 		path: '/testCalendar',
@@ -80,9 +89,9 @@ export default [
 		meta: ['记账本', '大额支出'],
 	}, 
 	{
-		path: '/xuebi',
-		component: xuebi,
-		meta: ['记账本', '雪碧'],
+		path: '/xuebiCost',
+		component: xuebiCost,
+		meta: ['雪碧', '记账本'],
 	}, 
 	{
 		path: '/lijin',

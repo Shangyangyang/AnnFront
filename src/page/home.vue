@@ -31,7 +31,7 @@ import { baseUrl, testUrl } from '@/config/env'
 import VeLine from 'v-charts/lib/line.common';
 import VePie from 'v-charts/lib/pie.common';
 
-const getAggs = data => fetch(testUrl + '/es/test/aggs', data);	
+// const getAggs = data => fetch(testUrl + '/es/test/aggs', data);	
 
 export default {
 	components: { VeLine, VePie },
@@ -77,66 +77,66 @@ export default {
 	},
 	methods:{
 		init(){
-			this.getAggs()
+			// this.getAggs()
 		},
 		changeArea(areaCode){
-			this.getAggs(areaCode)
+			// this.getAggs(areaCode)
 		},
-		async getAggs(areaCode){
-			let retObj = await getAggs({
-				areaCode: areaCode
-			})
+		// async getAggs(areaCode){
+		// 	let retObj = await getAggs({
+		// 		areaCode: areaCode
+		// 	})
 			
-			let data = retObj.data
+		// 	let data = retObj.data
 			
-			let rows2 = []
-			this.totalNum = 0
+		// 	let rows2 = []
+		// 	this.totalNum = 0
 			
-			Object.keys(data).forEach(item => {
-				this.totalNum = this.totalNum + data[item]
-				let obj2 = {
-					state: this.changeKey(item),
-					peopleNum: data[item]
-				}
-				rows2.push(obj2)
-			})
+		// 	Object.keys(data).forEach(item => {
+		// 		this.totalNum = this.totalNum + data[item]
+		// 		let obj2 = {
+		// 			state: this.changeKey(item),
+		// 			peopleNum: data[item]
+		// 		}
+		// 		rows2.push(obj2)
+		// 	})
 			
-			this.chartData2.rows = this.dataList = rows2
+		// 	this.chartData2.rows = this.dataList = rows2
 			
-			this.changList()
-		},
-		changList(){
-			if(this.dataList.length > 0 && this.totalNum > 0){
-				this.dataList.forEach(item => {
-					item.per = (item.peopleNum / this.totalNum * 100).toFixed(2)
-				})
-			}
-		},
-		changeKey(key){
-			switch (key){
-				case '1':
-					return "查无此人"
-					break;
-				case '2':
-					return "已搬迁"
-					break;
-				case '3':
-					return "空挂户"
-					break;
-				case '4':
-					return "外出"
-					break;
-				case '5':
-					return "死亡"
-					break;
-				case '6':
-					return "正常"
-					break;
-				default: 
-					return '无'
-					break;
-			}
-		}
+		// 	this.changList()
+		// },
+		// changList(){
+		// 	if(this.dataList.length > 0 && this.totalNum > 0){
+		// 		this.dataList.forEach(item => {
+		// 			item.per = (item.peopleNum / this.totalNum * 100).toFixed(2)
+		// 		})
+		// 	}
+		// },
+		// changeKey(key){
+		// 	switch (key){
+		// 		case '1':
+		// 			return "查无此人"
+		// 			break;
+		// 		case '2':
+		// 			return "已搬迁"
+		// 			break;
+		// 		case '3':
+		// 			return "空挂户"
+		// 			break;
+		// 		case '4':
+		// 			return "外出"
+		// 			break;
+		// 		case '5':
+		// 			return "死亡"
+		// 			break;
+		// 		case '6':
+		// 			return "正常"
+		// 			break;
+		// 		default: 
+		// 			return '无'
+		// 			break;
+		// 	}
+		// }
 	}
 };
 </script>
