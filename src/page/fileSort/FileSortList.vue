@@ -4,7 +4,7 @@
 		<div align="center">
 			<h3 style="margin-bottom: 20px;">已导入文件概况</h3>
 			<div>
-				现存的文件数量：{{infoForm.n1}}个
+				现存的文件数量：{{infoForm.n1}}个，已分类的有{{infoForm.n4}}个，占比：{{getZhanbi(infoForm)}}
 				<br />
 				音乐文件数量：{{infoForm.n2}}个，占比：{{infoForm.s1}}
 				<br />
@@ -12,7 +12,7 @@
 				<br />
 				最近一次导入时间是：{{infoForm.d1}}
 				<br />
-				现存文件的总占用空间是{{infoForm.l1}}
+				现存文件的总占用空间是{{getSizeStr(infoForm.l1)}}
 			</div>
 		</div>
 		<div style="padding: 15px;">
@@ -61,6 +61,39 @@ export default {
 		},
 		test() {
 			console.log('musicSortList', this.fileList);
+		},
+		getSizeStr(n){
+			let c = 0
+			while(n > 1024){
+				n = n / 1024
+				c++
+			}
+			
+			n = parseInt(n)
+			
+			let u = ''
+			switch (c){
+				case 1:
+					u = 'KB'
+					break;
+				case 2:
+					u = 'MB'
+					break;
+				case 3:
+					u = 'GB'
+					break;
+				default:
+					u = 'B'
+					break;
+			}
+			return `${n}${u}`
+		},
+		getZhanbi(info){
+			if(info.n4 == 0) return '0%'
+			let t = info.n1 + info.n4
+			console.log(20 / 6);
+			let s = t / info.n4
+			return `${s}%`
 		}
 	}
 };
