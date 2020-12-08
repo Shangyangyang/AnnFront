@@ -26,6 +26,7 @@ const test = r => require.ensure([], () => r(require('@/page/test/test')), 'test
 const testWebsocket = r => require.ensure([], () => r(require('@/page/test/testWebsocket')), 'testWebsocket');
 const testCalendar = r => require.ensure([], () => r(require('@/page/test/testCalendar')), 'testCalendar');
 const testVue = r => require.ensure([], () => r(require('@/page/test/testVue')), 'testVue');
+const testVuePro = r => require.ensure([], () => r(require('@/page/test/testVuePro')), 'testVuePro');
 const testEcharts = r => require.ensure([], () => r(require('@/page/test/testEcharts')), 'testEcharts');
 const testProgress_bak = r => require.ensure([], () => r(require('@/page/test/testProgress_bak')), 'testProgress_bak');
 
@@ -143,19 +144,25 @@ export default [
 	{
 		path: '/signin',
 		component: signin,
-		meta: ['小工具', '签到表'],
+		meta: ['测试', '测试element树结构'],
+	},
+	{
+		path: '/testVuePro',
+		name: 'testVuePro',
+		component: testVuePro,
+		meta: ['测试', 'Vue高级语法'],
 	},
 	{
 		path: '/testVue',
 		name: 'testVue',
 		component: testVue,
-		meta: ['小工具', '测试Vue'],
+		meta: ['测试', '测试Vue'],
 	},
 	{
 		path: '/testEcharts',
 		name: 'testEcharts',
 		component: testEcharts,
-		meta: ['小工具', '测试Echarts'],
+		meta: ['测试', '测试Echarts'],
 	},
 	{
 		path: '/login',

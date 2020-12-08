@@ -171,6 +171,7 @@ export default {
 					type: 'error',
 					message: '获取数据失败'
 				});
+				this.closeLoop();
 				return;
 			}
 
@@ -192,8 +193,9 @@ export default {
 			if (retObj.status != 1) {
 				this.$message({
 					type: 'error',
-					message: '获取数据失败'
+					message: '获取数据失败, ' + retObj.message
 				});
+				this.closeLoop();
 				return;
 			}
 

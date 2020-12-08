@@ -29,24 +29,45 @@
 							</el-row>
 						</el-form>
 					</div>
-					<el-table :data="tableData" stripe border style="width: 100%">
-						<el-table-column prop="inputDate" label="消费日期" width="150"></el-table-column>
-						<el-table-column prop="money" label="金额" width="150"></el-table-column>
-						<el-table-column prop="typeName" label="类型" width="150"></el-table-column>
-						<el-table-column prop="reason" label="说明" width="250"></el-table-column>
-						<el-table-column label="操作" width="300">
-							<template slot-scope="scope">
-								<el-button size="small" @click="handleView(scope.row)" icon="el-icon-edit">查看</el-button>
-								<el-button size="small" @click="handleEdit(scope.row)" icon="el-icon-edit">编辑</el-button>
-								<el-button size="small" @click="handleDelete(scope.row)" icon="el-icon-edit">删除</el-button>
-							</template>
-						</el-table-column>
-					</el-table>
-					<div class="Pagination" style="text-align: right;">
-						<el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :total="dataCount" :page-sizes="[10, 20, 30, 40,50]" layout="total, sizes, prev, pager, next">
-						</el-pagination>
+					<div class="pageTitle">
+						<div class="pageLeftRight">
+							<table class="tbStyle" border="0" cellspacing="1">
+								<tr>
+									<td>序号</td>
+									<td>消费日期</td>
+									<td>金额</td>
+									<td>类型</td>
+									<td>说明</td>
+									<td>操作</td>
+								</tr>
+								<tr v-for="(item, index) in tableData" :key="index">
+									<td>{{ index + 1 }}</td>
+									<td>{{ item.inputDate }}</td>
+									<td>{{ item.money }}</td>
+									<td>{{ item.typeName }}</td>
+									<td>{{ item.reason }}</td>
+									<td>
+										<a href="javascript:;" @click="handleView(item)">查看</a>
+										<a href="javascript:;" @click="handleEdit(item)">编辑</a>
+										<a href="javascript:;" @click="handleDelete(item)">删除</a>
+									</td>
+								</tr>
+							</table>
+					
+							<div class="Pagination">
+								<el-pagination
+									background
+									@size-change="handleSizeChange"
+									@current-change="handleCurrentChange"
+									:current-page="currentPage"
+									:page-size="pageSize"
+									:total="dataCount"
+									:page-sizes="[10, 20, 30, 40, 50]"
+									layout="total, sizes, prev, pager, next, jumper"
+								></el-pagination>
+							</div>
+						</div>
 					</div>
-
 				</el-main>
 			</el-container>
 		</div>
